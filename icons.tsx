@@ -1,0 +1,85 @@
+
+import React from 'react';
+
+export const Icon: React.FC<{ name: string; className?: string }> = ({ name, className }) => {
+  const icons: { [key: string]: React.ReactElement } = {
+    compass: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+      </svg>
+    ),
+    map: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
+      </svg>
+    ),
+    mountain: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M8 3l4 8 5-5 5 15H2L8 3z" />
+      </svg>
+    ),
+    waves: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 12c.6.5 1.2 1 2.5 1s2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1 1.2 1 2.5 1 2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1" />
+        <path d="M2 17c.6.5 1.2 1 2.5 1s2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1 1.2 1 2.5 1 2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1" />
+      </svg>
+    ),
+    cloud: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17.5 19c0-1.7-1.3-3-3-3h-1.1c-.2-3.1-2.9-5.5-6-5.3-2.8.2-5 2.5-5 5.4 0 1.6 1.3 3 2.9 3h12.2z" />
+      </svg>
+    ),
+    star: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+      </svg>
+    ),
+    sun: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="5" />
+        <path d="M12 1v2" />
+        <path d="M12 21v2" />
+        <path d="M4.22 4.22l1.42 1.42" />
+        <path d="M18.36 18.36l1.42 1.42" />
+        <path d="M1 12h2" />
+        <path d="M21 12h2" />
+        <path d="M4.22 19.78l1.42-1.42" />
+        <path d="M18.36 5.64l1.42-1.42" />
+      </svg>
+    ),
+    x: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    ),
+    check: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    ),
+    tree: (
+       <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22v-8m0-6V2M4.3 10.3c.6-1.3 2.5-3.5 3.7-4.3 2.5-1.7 5.5-1.7 8 0 1.2.8 3.1 3 3.7 4.3 1.3 2.8-1 6-4.2 5.7H8.5c-3.2.3-5.5-2.9-4.2-5.7z" />
+      </svg>
+    ),
+    arrowRight: (
+       <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12" />
+        <polyline points="12 5 19 12 12 19" />
+      </svg>
+    ),
+    search: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+    )
+  };
+
+  return icons[name] || null;
+};

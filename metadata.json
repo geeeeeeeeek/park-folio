@@ -1,0 +1,5 @@
+{
+  "name": "ParkFolio",
+  "description": "A personal tracker for US National Park visits featuring a stylized map, achievement badges, and travel logs.",
+  "requestFramePermissions": []
+}
