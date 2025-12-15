@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
@@ -15,35 +16,29 @@
             fontFamily: {
               serif: ['"DM Serif Display"', 'serif'],
               sans: ['"DM Sans"', 'sans-serif'],
+              mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
             },
             colors: {
-              earth: {
-                50: '#f9f8f6', // Lightest Cream
-                100: '#f4f1ea', // Main Background (Bone)
-                200: '#e6e2d6', // Secondary (Sand)
-                300: '#d1cdc3',
-                400: '#a39f96',
-                900: '#3d3a36',
-              },
-              forest: {
-                50: '#f2f7f4',
-                100: '#e1ece6',
-                300: '#8cae97', // Sage
-                500: '#4d7a60', // Muted Green
-                700: '#2c4a3b', // Deep Green
-                900: '#1a2e24', // Black Green
-              },
-              stone: {
-                800: '#292524', // Warm Black
-                900: '#1c1917',
-              },
-              rust: {
-                500: '#b45309',
-                600: '#92400e',
+              brand: {
+                green: '#1a4731', // Deep Forest Green
+                yellow: '#ffb700', // Vibrant Orange Yellow
+                black: '#121212', // Soft Black for borders
+                white: '#ffffff',
+                beige: '#fffdf5', // Paper
+                gray: '#e5e5e5',
               }
             },
+            boxShadow: {
+              'hard': '4px 4px 0 0 #121212',
+              'hard-sm': '2px 2px 0 0 #121212',
+              'hard-lg': '8px 8px 0 0 #121212',
+              'hard-hover': '6px 6px 0 0 #121212',
+            },
+            borderWidth: {
+              '3': '3px',
+            },
             animation: {
-              'fade-in': 'fadeIn 0.6s ease-out forwards',
+              'fade-in': 'fadeIn 0.4s ease-out forwards',
             },
             keyframes: {
               fadeIn: {
@@ -57,22 +52,24 @@
     </script>
     <style>
       body {
-        background-color: #f4f1ea;
-        color: #1c1917;
+        background-color: #fffdf5;
+        color: #121212;
       }
       /* Minimal Scrollbar */
       ::-webkit-scrollbar {
-        width: 6px;
+        width: 10px;
+        background: #121212;
       }
       ::-webkit-scrollbar-track {
-        background: transparent; 
+        background: #fffdf5; 
+        border-left: 2px solid #121212;
       }
       ::-webkit-scrollbar-thumb {
-        background: #d1cdc3; 
-        border-radius: 3px;
+        background: #ffb700; 
+        border: 2px solid #121212;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #a39f96; 
+        background: #1a4731; 
       }
     </style>
   <script type="importmap">
@@ -88,7 +85,7 @@
 }
 </script>
 </head>
-  <body class="bg-earth-100 font-sans antialiased overflow-hidden selection:bg-forest-300 selection:text-forest-900">
+  <body class="bg-brand-beige font-sans antialiased overflow-hidden selection:bg-brand-yellow selection:text-brand-black">
     <div id="root"></div>
   </body>
 </html>

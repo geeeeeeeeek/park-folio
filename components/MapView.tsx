@@ -2,11 +2,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
-import { NationalPark, UserVisit } from '../types';
+import { AnimatePresence } from 'framer-motion';
+import { NationalPark, UserParkHistory } from '../types';
 
 interface MapViewProps {
   parks: NationalPark[];
-  visits: UserVisit[];
+  visits: UserParkHistory[];
   onParkSelect: (id: string) => void;
 }
 
@@ -44,11 +45,16 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
     const g = d3.select(gRef.current);
     const { width, height } = dimensions;
 
+    // Zoom behavior
     const zoom = d3.zoom()
       .scaleExtent([1, 8])
       .translateExtent([[0, 0], [width, height]])
       .on("zoom", (event) => {
         g.attr("transform", event.transform);
+        // Counter-scale markers to keep them constant visual size
+        // We divide 1 by the transform k (scale)
+        g.selectAll(".marker-group")
+          .attr("transform", `scale(${1 / event.transform.k})`);
       });
 
     svg.call(zoom as any);
@@ -62,27 +68,28 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
 
     g.selectAll("*").remove();
 
-    // 1. Shadow Layer (Soft)
+    // 1. Shadow Layer (Hard Black Shadow)
     g.append("g")
       .selectAll("path")
       .data((states as any).features)
       .enter()
       .append("path")
       .attr("d", pathGenerator as any)
-      .attr("fill", "#d6d3c4") // Earth 200/300 mix
-      .attr("transform", "translate(2, 2)");
+      .attr("fill", "#000000") 
+      .attr("transform", "translate(4, 4)");
 
-    // 2. Land Layer (Vintage Paper)
+    // 2. Land Layer (White with Bold Black Stroke)
     g.append("g")
       .selectAll("path")
       .data((states as any).features)
       .enter()
       .append("path")
       .attr("d", pathGenerator as any)
-      .attr("fill", "#f4f1ea") // Earth 100
-      .attr("stroke", "#d1cdc3") // Earth 300
-      .attr("stroke-width", 0.5)
-      .attr("class", "transition-colors duration-300 hover:fill-earth-50");
+      .attr("fill", "#ffffff") 
+      .attr("stroke", "#121212")
+      .attr("stroke-width", 1.5)
+      .attr("stroke-linejoin", "round") 
+      .attr("class", "transition-colors duration-200 hover:fill-brand-yellow");
 
     // 3. Parks
     const projectableParks = parks.filter(p => projection([p.coordinates.lng, p.coordinates.lat]) !== null);
@@ -93,6 +100,8 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
       .enter()
       .append("g")
       .attr("class", "cursor-pointer")
+      // We translate the parent group to the map location.
+      // This part SCALES with the map zoom.
       .attr("transform", (d) => {
         const coords = projection([d.coordinates.lng, d.coordinates.lat]);
         return `translate(${coords![0]}, ${coords![1]})`;
@@ -106,53 +115,54 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
 
     parkGroups.each(function(d) {
       const group = d3.select(this);
-      const isVisited = visits.some(v => v.parkId === d.id && v.visited);
       
-      group.append("circle")
+      // Determine if visited by checking if logs array is not empty
+      const parkHistory = visits.find(v => v.parkId === d.id);
+      const isVisited = parkHistory && parkHistory.visits.length > 0;
+      
+      // The marker group is what we counter-scale. 
+      // It sits at (0,0) of the parent group (which is at the map lat/lng).
+      const marker = group.append("g")
+        .attr("class", "marker-group");
+      
+      // Invisible hit area - inside marker group so it stays constant size relative to icon
+      marker.append("circle")
         .attr("r", 20)
         .attr("fill", "transparent");
 
-      const marker = group.append("g")
-        .attr("class", "marker-group transition-all duration-300");
-
       if (isVisited) {
-        // Visited: Deep Forest Green Dot
-        marker.append("circle")
-          .attr("r", 4)
-          .attr("fill", "#2c4a3b") // Forest 700
-          .attr("stroke", "#f4f1ea")
-          .attr("stroke-width", 1.5);
+        // Visited: Simple Pine Tree
+        marker.append("path")
+          .attr("d", "M12 3 L5 17 h5 v5 h4 v-5 h5 L12 3 z") // Geometric tree
+          .attr("fill", "#1a4731") // Brand Green
+          .attr("stroke", "#121212")
+          .attr("stroke-width", 1.5)
+          .attr("transform", "translate(-12, -14) scale(0.9)"); // Center the 24x24 icon
       } else {
-        // Not Visited: Hollow Rust Ring
+        // Not Visited: Brand Yellow Circle
         marker.append("circle")
-          .attr("r", 3)
-          .attr("fill", "#f4f1ea")
-          .attr("stroke", "#a39f96") // Earth 400
-          .attr("stroke-width", 1.5);
+          .attr("r", 5)
+          .attr("fill", "#ffb700") // Brand Yellow
+          .attr("stroke", "#121212")
+          .attr("stroke-width", 2);
       }
     });
 
   }, [geoData, dimensions, parks, visits, onParkSelect]);
 
-  useEffect(() => {
-    if (!gRef.current) return;
-    const g = d3.select(gRef.current);
-    g.selectAll(".marker-group")
-      .transition()
-      .duration(200)
-      .attr("transform", (d: any) => d.id === hoveredPark ? "scale(1.8)" : "scale(1)");
-  }, [hoveredPark]);
-
   return (
-    <div className="w-full h-full relative bg-earth-200 overflow-hidden">
-      {/* Texture Overlay */}
-      <div className="absolute inset-0 opacity-40 pointer-events-none" 
-           style={{ backgroundImage: `url('https://www.transparenttextures.com/patterns/cardboard-flat.png')` }}>
+    <div className="w-full h-full relative bg-brand-beige overflow-hidden">
+      {/* Background Dot Pattern */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none" 
+           style={{ 
+             backgroundImage: 'radial-gradient(#1a4731 2px, transparent 2px)', 
+             backgroundSize: '20px 20px' 
+           }}>
       </div>
 
       {!geoData && (
-         <div className="absolute inset-0 flex items-center justify-center text-stone-500 bg-earth-100/50 backdrop-blur-sm z-10">
-            <span className="font-sans text-sm tracking-widest uppercase">Loading Cartography...</span>
+         <div className="absolute inset-0 flex items-center justify-center text-brand-black bg-brand-white/80 z-10 border-2 border-brand-black m-12 shadow-hard rounded-2xl">
+            <span className="font-bold text-xl tracking-widest uppercase">Loading Atlas...</span>
          </div>
       )}
 
@@ -160,25 +170,22 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
         <g ref={gRef} />
       </svg>
 
-      {/* Minimal Hover Card */}
-      <div className="absolute bottom-8 left-8 pointer-events-none">
-        {hoveredPark ? (
-           <div className="bg-earth-100 p-6 shadow-xl shadow-stone-900/5 border border-earth-300 max-w-sm">
-             <span className="block text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-2">
-               {parks.find(p => p.id === hoveredPark)?.state}
-             </span>
-             <h3 className="font-serif text-3xl text-stone-900 leading-none mb-2">
-               {parks.find(p => p.id === hoveredPark)?.name}
-             </h3>
-             <p className="text-sm text-stone-600 font-medium leading-relaxed line-clamp-2">
-               {parks.find(p => p.id === hoveredPark)?.description}
-             </p>
-           </div>
-        ) : (
-          <div className="text-stone-400 font-serif text-2xl italic opacity-50">
-            Explore the wild.
-          </div>
-        )}
+      {/* Brutalist Pop Hover Card */}
+      <div className="absolute bottom-8 left-8 pointer-events-none z-20">
+        <AnimatePresence>
+          {hoveredPark && (
+             <div className="bg-brand-white p-6 border-3 border-brand-black shadow-hard rounded-2xl max-w-sm">
+               <div className="bg-brand-yellow inline-block px-3 py-1 border-2 border-brand-black mb-3 rounded-full">
+                  <span className="block text-xs font-bold text-brand-black uppercase tracking-widest">
+                  {parks.find(p => p.id === hoveredPark)?.state}
+                  </span>
+               </div>
+               <h3 className="font-serif text-4xl text-brand-black leading-none mb-2 font-bold">
+                 {parks.find(p => p.id === hoveredPark)?.name}
+               </h3>
+             </div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

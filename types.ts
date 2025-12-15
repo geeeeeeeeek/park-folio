@@ -10,19 +10,22 @@ export interface NationalPark {
   state: string;
   coordinates: Coordinates;
   description: string;
-  imageUrl: string;
+  asciiArt: string;
   established: string;
-  funFact: string; // Replaces 'acres' for a more engaging experience
+  funFact: string;
 }
 
-export interface UserVisit {
+export type RatingValue = 0 | 1 | 2 | 3;
+
+export interface VisitLog {
+  date: string;
+  notes: string;
+}
+
+export interface UserParkHistory {
   parkId: string;
-  visited: boolean;
-  dateLastVisited?: string;
-  visitCount: number;
-  rating?: 1 | 2 | 3 | 4 | 5;
-  notes?: string;
-  favoriteMoment?: string;
+  rating?: RatingValue;
+  visits: VisitLog[];
 }
 
 export interface Badge {
@@ -30,7 +33,7 @@ export interface Badge {
   name: string;
   description: string;
   icon: string;
-  condition: (visits: UserVisit[], parks: NationalPark[]) => boolean;
+  condition: (history: UserParkHistory[], parks: NationalPark[]) => boolean;
   color: string;
 }
 

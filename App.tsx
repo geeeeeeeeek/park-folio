@@ -1,8 +1,9 @@
 
 import React, { useState, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { PARKS, USER_LOGS } from './constants';
-import { NationalPark, ViewState } from './types';
+import { PARKS } from './constants';
+import { USER_LOGS } from './userData';
+import { ViewState } from './types';
 import { Icon } from './icons';
 
 // Component Imports
@@ -23,47 +24,60 @@ const App = () => {
     USER_LOGS.find(v => v.parkId === selectedParkId), 
   [selectedParkId]);
 
+  const navItems = [
+    { id: 'MAP', icon: 'map', label: 'Map' },
+    { id: 'BADGES', icon: 'medal', label: 'Collection' },
+    { id: 'LOGS', icon: 'journal', label: 'Logs' },
+  ];
+
   return (
-    <div className="relative flex flex-col h-screen w-full bg-earth-100 overflow-hidden text-stone-900 font-sans">
+    <div className="relative flex flex-col h-screen w-full bg-brand-beige overflow-hidden font-sans text-brand-black selection:bg-brand-yellow selection:text-brand-black">
       
-      {/* Minimal Header */}
-      <header className="z-20 px-8 py-6 flex items-center justify-between border-b border-earth-300/50 bg-earth-100/95 backdrop-blur-sm">
-        <div className="flex items-center space-x-3 group cursor-pointer" onClick={() => setCurrentView('MAP')}>
-          <div className="text-forest-700">
-             <Icon name="tree" className="w-6 h-6" />
-          </div>
-          <h1 className="text-2xl font-serif text-stone-900 tracking-tight group-hover:text-forest-700 transition-colors">ParkFolio.</h1>
-        </div>
+      {/* Header - Seamless Design */}
+      <header className="z-30 px-6 py-4 flex items-center justify-between shrink-0">
         
-        <nav className="flex items-center space-x-8">
-          {(['MAP', 'BADGES', 'LOGS'] as ViewState[]).map((view) => (
-            <button
-              key={view}
-              onClick={() => {
-                setCurrentView(view);
-                setSelectedParkId(null);
-              }}
-              className={`text-sm font-medium tracking-wide uppercase transition-all duration-300 relative ${
-                currentView === view
-                  ? 'text-forest-700'
-                  : 'text-stone-400 hover:text-stone-600'
-              }`}
-            >
-              {view}
-              {currentView === view && (
-                <motion.div
-                  layoutId="underline"
-                  className="absolute -bottom-1 left-0 right-0 h-px bg-forest-700"
-                  transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-                />
-              )}
-            </button>
-          ))}
+        {/* Logo Section */}
+        <div className="flex items-center gap-4">
+           <div className="w-12 h-12 rounded-full border-3 border-brand-black overflow-hidden shadow-hard-sm bg-brand-white group hover:scale-105 transition-transform duration-300">
+             <img 
+               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA3mVNFOLWoB-Od1SoeZPaPvwhrjccv7Ku_Q_ZUQORtw&s=10" 
+               alt="ParkFolio Logo" 
+               className="w-full h-full object-cover"
+             />
+           </div>
+           <h1 className="hidden md:block font-serif font-bold text-3xl tracking-tight text-brand-black">
+             ParkFolio
+           </h1>
+        </div>
+
+        {/* Navigation - Floating Dock Style */}
+        <nav className="bg-brand-white/50 backdrop-blur-md border-2 border-brand-black rounded-full p-1.5 shadow-hard-sm flex gap-1">
+          {navItems.map((item) => {
+            const isActive = currentView === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setCurrentView(item.id as ViewState)}
+                className={`
+                  relative flex items-center gap-2 px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-300
+                  ${isActive 
+                    ? 'bg-brand-black text-brand-yellow shadow-sm translate-y-0' 
+                    : 'text-brand-black hover:bg-brand-black/5 hover:text-brand-green bg-transparent'}
+                `}
+              >
+                <Icon name={item.icon} className={`w-4 h-4 ${isActive ? 'text-brand-yellow' : 'currentColor'}`} />
+                <span className="hidden sm:block">{item.label}</span>
+              </button>
+            );
+          })}
         </nav>
+
+         {/* Spacer to balance the layout on desktop */}
+         <div className="w-12 hidden md:block" />
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 relative overflow-hidden bg-earth-50">
+      <main className="flex-1 relative overflow-hidden">
         <AnimatePresence mode="wait">
           {currentView === 'MAP' && (
             <motion.div
@@ -71,8 +85,7 @@ const App = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="w-full h-full"
+              className="w-full h-full absolute inset-0"
             >
               <MapView 
                 parks={PARKS} 
@@ -88,7 +101,6 @@ const App = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
               className="w-full h-full overflow-y-auto"
             >
               <BadgeView visits={USER_LOGS} parks={PARKS} />
@@ -97,26 +109,23 @@ const App = () => {
 
           {currentView === 'LOGS' && (
             <motion.div
-              key="logs"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="w-full h-full overflow-y-auto"
+               key="logs"
+               initial={{ opacity: 0, x: 20 }}
+               animate={{ opacity: 1, x: 0 }}
+               exit={{ opacity: 0, x: -20 }}
+               className="w-full h-full overflow-y-auto"
             >
               <LogsView 
                 parks={PARKS} 
                 visits={USER_LOGS} 
-                onParkSelect={(id) => {
-                  setSelectedParkId(id);
-                }} 
+                onParkSelect={setSelectedParkId} 
               />
             </motion.div>
           )}
         </AnimatePresence>
       </main>
 
-      {/* Sidebar Overlay */}
+      {/* Park Details Modal Overlay */}
       <AnimatePresence>
         {selectedPark && (
           <ParkDetails 
