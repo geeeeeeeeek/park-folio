@@ -23,8 +23,8 @@ export const Icon: React.FC<{ name: string; className?: string }> = ({ name, cla
     ),
     waves: (
       <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 12c.6.5 1.2 1 2.5 1s2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1 1.2 1 2.5-1 2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1" />
-        <path d="M2 17c.6.5 1.2 1 2.5 1s2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1 1.2 1 2.5-1 2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1" />
+        <path d="M2 12c.6.5 1.2 1 2.5 1s2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1 1.2 1 2.5-1 2.5.5 2.5 1 1.2 1 2.5-1 2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1" />
+        <path d="M2 17c.6.5 1.2 1 2.5 1s2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1 1.2 1 2.5-1 2.5.5 2.5 1 1.2 1 2.5-1 2.5.5 2.5 1" />
       </svg>
     ),
     cloud: (
@@ -102,15 +102,11 @@ export const Icon: React.FC<{ name: string; className?: string }> = ({ name, cla
     ),
     explorerBear: (
       <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        {/* Hat */}
         <path d="M2 10h20" />
         <path d="M6 10v-2a6 6 0 0 1 12 0v2" />
-        {/* Face */}
         <path d="M6 10v6a6 6 0 0 0 12 0v-6" />
-        {/* Ears */}
         <path d="M4 10a3 3 0 0 1 3-3" />
         <path d="M20 10a3 3 0 0 0-3-3" />
-        {/* Features */}
         <circle cx="9" cy="14" r="1" fill="currentColor"/>
         <circle cx="15" cy="14" r="1" fill="currentColor"/>
         <path d="M11 17h2" />
@@ -120,6 +116,100 @@ export const Icon: React.FC<{ name: string; className?: string }> = ({ name, cla
       <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
          <path d="M5 20v-4.5c0-.8.7-1.5 1.5-1.5h1.3c.7 0 1.2-.4 1.4-1.1L10.7 8c.3-1.1 1.4-2 2.6-2h.8c1.7 0 3 1.3 3 3v2c0 .6-.4 1-1 1h-2v4h4c1.1 0 2 .9 2 2v2H5z" />
       </svg>
+    ),
+    leaf: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+        </svg>
+    ),
+    fire: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.1.2-2.2.6-3.3.7 1.25 1.8 2.65 2.9 3.3Z" />
+        </svg>
+    ),
+    snowflake: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <line x1="12" y1="2" x2="12" y2="22" />
+            <path d="m20 16-4-4 4-4" />
+            <path d="m4 8 4 4-4 4" />
+            <path d="m16 4-4 4-4-4" />
+            <path d="m8 20 4-4 4 4" />
+        </svg>
+    ),
+    camera: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+            <circle cx="12" cy="13" r="3" />
+        </svg>
+    ),
+    anchor: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="5" r="3" />
+            <line x1="12" y1="22" x2="12" y2="8" />
+            <path d="M5 12H2a10 10 0 0 0 20 0h-3" />
+        </svg>
+    ),
+    flashlight: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 6c0 2-3 2-3 6h-6c0-4-3-4-3-6 0-4 12-4 12 0Z" />
+            <line x1="6" y1="22" x2="6" y2="12" />
+            <line x1="18" y1="22" x2="18" y2="12" />
+            <line x1="6" y1="22" x2="18" y2="22" />
+        </svg>
+    ),
+    scroll: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 4c0 1.5-.5 3-2.5 3S14 5.5 14 4s.5-3 2.5-3 2.5 1.5 2.5 3z" />
+            <path d="M5 20c0 1.5.5 3 2.5 3S10 21.5 10 20s-.5-3-2.5-3S5 18.5 5 20z" />
+            <path d="M14 4v10.7c0 1.1-.9 2-2 2H7c-1.1 0-2 .9-2 2s.9 2 2 2h7c1.1 0 2-.9 2-2V4" />
+        </svg>
+    ),
+    cactus: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M8 10V8a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v10" />
+            <path d="M12 20v2" />
+            <path d="M12 4v2" />
+            <path d="M6 10a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2" />
+            <path d="M18 10a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2" />
+        </svg>
+    ),
+    trophy: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M8 21h8" />
+            <path d="M12 17v4" />
+            <path d="M7 4h10" />
+            <path d="M17 4v8a5 5 0 0 1-10 0V4" />
+            <path d="M5 9v1a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+            <path d="M19 9v1a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2" />
+        </svg>
+    ),
+    crown: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14" />
+        </svg>
+    ),
+    plane: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2 12h20" />
+            <path d="M13 2l3.5 10H22l-4 4h-2.5l2.5 4H14l-2-4H8l-2 4H2l4-8H2l1-2h3l2-4h4l-2 4h3z" /> 
+            <path d="M16 2l-2 10" />
+        </svg>
+    ),
+    diamond: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 3h12l4 6-10 13L2 9z" />
+        </svg>
+    ),
+    skull: (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="9" cy="12" r="1" />
+            <circle cx="15" cy="12" r="1" />
+            <path d="M8 20v2h8v-2" />
+            <path d="M12.5 17l-.5-1-.5 1h1z" />
+            <path d="M16 20a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20" />
+        </svg>
     )
   };
 

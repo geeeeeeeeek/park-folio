@@ -8,6 +8,7 @@ export interface NationalPark {
   id: string;
   name: string;
   state: string;
+  emoji: string;
   coordinates: Coordinates;
   description: string;
   asciiArt: string;
@@ -35,6 +36,7 @@ export interface Badge {
   icon: string;
   condition: (history: UserParkHistory[], parks: NationalPark[]) => boolean;
   color: string;
+  relevantParkIds?: string[]; // Optional list of parks that contribute to this badge
 }
 
 export type ViewState = 'MAP' | 'BADGES' | 'LOGS';

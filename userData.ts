@@ -17,7 +17,7 @@ export const USER_LOGS: UserParkHistory[] = [
   {
     parkId: 'acadia',
     rating: 2,
-    visits: [{ date: '2025-01-01', notes: '' }]
+    visits: [{ date: '2025-10-13', notes: 'The wild caught lobsters were amazing! The bee hive trail is stunning (and scary).' }]
   },
   {
     parkId: 'arches',
@@ -37,7 +37,7 @@ export const USER_LOGS: UserParkHistory[] = [
   {
     parkId: 'carlsbad-caverns',
     rating: 2,
-    visits: [{ date: '2025-01-01', notes: '' }]
+    visits: [{ date: '2025-12-12', notes: 'It\'s not just a cavern like others. The Big Room is huge with a wide variety of formations, and the lighting is also interesting.' }]
   },
   {
     parkId: 'channel-islands',
@@ -77,7 +77,7 @@ export const USER_LOGS: UserParkHistory[] = [
   {
     parkId: 'guadalupe-mountains',
     rating: 1,
-    visits: [{ date: '2025-01-01', notes: '' }]
+    visits: [{ date: '2025-12-12', notes: 'There really isn\'t much to do. I hiked Devil\'s Hall, and while the vertical rock layers were interesting, that was kind of the only highlight.' }]
   },
   {
     parkId: 'hawaii-volcanoes',
@@ -182,7 +182,7 @@ export const USER_LOGS: UserParkHistory[] = [
   {
     parkId: 'yosemite',
     rating: 3,
-    visits: [{ date: '2025-01-01', notes: '' }]
+    visits: [{ date: '2025-08-13', notes: 'En route to Sequoia.' }, { date: '2025-01-01', notes: '' }, { date: '2024-01-01', notes: '' }]
   },
   {
     parkId: 'zion',

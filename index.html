@@ -1,75 +1,89 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ParkFolio - National Park Tracker</title>
+    <title>ParkFolio - Island Tracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              serif: ['"DM Serif Display"', 'serif'],
-              sans: ['"DM Sans"', 'sans-serif'],
+              sans: ['"Varela Round"', 'sans-serif'],
+              serif: ['"Varela Round"', 'sans-serif'], 
               mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
             },
             colors: {
               brand: {
-                green: '#1a4731', // Deep Forest Green
-                yellow: '#ffb700', // Vibrant Orange Yellow
-                black: '#121212', // Soft Black for borders
-                white: '#ffffff',
-                beige: '#fffdf5', // Paper
-                gray: '#e5e5e5',
+                green: '#78d884', 
+                greenDark: '#4ea95b',
+                teal: '#39a07b', 
+                tealDark: '#1e5641', 
+                blue: '#7ad3f0', 
+                blueDark: '#0c4a6e', 
+                yellow: '#fffbb8', 
+                yellowDark: '#f2eb9b', 
+                cream: '#e6dfc2', // Updated to new Beige Background
+                navBtn: '#f6f7e1', // New Button Background
+                brown: '#7c6553', 
+                orange: '#f28f3b', 
+                gray: '#e8e8e3',
+                beige: '#d1cdc7',
               }
             },
             boxShadow: {
-              'hard': '4px 4px 0 0 #121212',
-              'hard-sm': '2px 2px 0 0 #121212',
-              'hard-lg': '8px 8px 0 0 #121212',
-              'hard-hover': '6px 6px 0 0 #121212',
+              'soft': '0 4px 12px -2px rgba(124, 101, 83, 0.15)',
+              'card': '0 8px 0 0 rgba(124, 101, 83, 0.1)',
+              'item': 'inset 0 0 0 2px rgba(255,255,255,0.4)', // Inner gloss
             },
-            borderWidth: {
-              '3': '3px',
+            borderRadius: {
+              'item': '12px',
+              '4xl': '2rem',
+              '5xl': '3rem',
             },
-            animation: {
-              'fade-in': 'fadeIn 0.4s ease-out forwards',
-            },
-            keyframes: {
-              fadeIn: {
-                '0%': { opacity: '0', transform: 'translateY(10px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              }
-            }
           }
         }
       }
     </script>
     <style>
       body {
-        background-color: #fffdf5;
-        color: #121212;
+        background-color: #e6dfc2; /* New main page background */
+        color: #7c6553;
       }
-      /* Minimal Scrollbar */
+
+      /* Map Background - Matches main background with subtle lighter dots */
+      .pattern-map-dots {
+        background-color: #e6dfc2;
+        background-image: radial-gradient(rgba(255,255,255,0.4) 2px, transparent 2px); 
+        background-size: 24px 24px;
+      }
+
+      /* Inventory Card Pattern */
+      .pattern-card {
+        background-color: #fffbb8;
+        background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 18c-1.5 0-2.5-1-2.5-2.5v-1c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5v1c0 1.5-1 2.5-2.5 2.5zm0-6c-2 0-3 1.5-3 3s1 3 3 3 3-1.5 3-3-1-3-3-3z' fill='%23f2eb9b' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E");
+      }
+
       ::-webkit-scrollbar {
-        width: 10px;
-        background: #121212;
+        width: 12px;
+        background: transparent;
       }
       ::-webkit-scrollbar-track {
-        background: #fffdf5; 
-        border-left: 2px solid #121212;
+        background: rgba(124, 101, 83, 0.1); 
+        border-radius: 10px;
+        margin: 4px;
       }
       ::-webkit-scrollbar-thumb {
-        background: #ffb700; 
-        border: 2px solid #121212;
+        background: #f2eb9b; 
+        border-radius: 10px;
+        border: 3px solid #f0f0e8;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #1a4731; 
+        background: #fffbb8; 
       }
     </style>
   <script type="importmap">
@@ -85,7 +99,7 @@
 }
 </script>
 </head>
-  <body class="bg-brand-beige font-sans antialiased overflow-hidden selection:bg-brand-yellow selection:text-brand-black">
+  <body class="font-sans antialiased overflow-hidden selection:bg-brand-teal selection:text-brand-brown">
     <div id="root"></div>
   </body>
 </html>
