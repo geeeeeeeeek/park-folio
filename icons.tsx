@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 
 export const Icon: React.FC<{ name: string; className?: string }> = ({ name, className }) => {
@@ -16,6 +17,32 @@ export const Icon: React.FC<{ name: string; className?: string }> = ({ name, cla
         <line x1="16" y1="6" x2="16" y2="22" />
       </svg>
     ),
+    binoculars: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 10h4" />
+        <path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3" />
+        <path d="M20 21a2 2 0 0 0 2-2v-3.851c0-1.39-2-2.962-2-4.829V8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v1.178C13.133 11.247 11.642 12 10 12c-1.642 0-3.133-.753-4-2.822V8a1 1 0 0 0-1-1H1a1 1 0 0 0-1 1v2.32c0 1.867-2 3.439-2 4.829V19a2 2 0 0 0 2 2" />
+      </svg>
+    ),
+    dice: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+        <path d="M16 8h.01" />
+        <path d="M8 8h.01" />
+        <path d="M8 16h.01" />
+        <path d="M16 16h.01" />
+        <path d="M12 12h.01" />
+      </svg>
+    ),
+    shuffle: (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 3 21 3 21 8" />
+        <line x1="4" y1="20" x2="21" y2="3" />
+        <polyline points="21 16 21 21 16 21" />
+        <line x1="15" y1="15" x2="21" y2="21" />
+        <line x1="4" y1="4" x2="9" y2="9" />
+      </svg>
+    ),
     mountain: (
       <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M8 3l4 8 5-5 5 15H2L8 3z" />
@@ -23,7 +50,7 @@ export const Icon: React.FC<{ name: string; className?: string }> = ({ name, cla
     ),
     waves: (
       <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 12c.6.5 1.2 1 2.5 1s2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1 1.2 1 2.5-1 2.5.5 2.5 1 1.2 1 2.5-1 2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1" />
+        <path d="M2 12c.6.5 1.2 1 2.5 1s2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1 1.2 1 2.5-1 2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1" />
         <path d="M2 17c.6.5 1.2 1 2.5 1s2.5-.5 2.5-1 1.2-1 2.5-1 2.5.5 2.5 1 1.2 1 2.5-1 2.5.5 2.5 1 1.2 1 2.5-1 2.5.5 2.5 1" />
       </svg>
     ),
@@ -70,6 +97,12 @@ export const Icon: React.FC<{ name: string; className?: string }> = ({ name, cla
        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <line x1="5" y1="12" x2="19" y2="12" />
         <polyline points="12 5 19 12 12 19" />
+      </svg>
+    ),
+    arrowLeft: (
+       <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12" />
+        <polyline points="12 19 5 12 12 5" />
       </svg>
     ),
     search: (

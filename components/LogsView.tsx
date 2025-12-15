@@ -45,10 +45,10 @@ const LogsView: React.FC<LogsViewProps> = ({ parks, visits, onParkSelect }) => {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 pb-32">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 pb-32">
        
        {/* Header Banner - Matching BadgeView Aesthetic */}
-       <div className="relative bg-brand-navBtn rounded-[3rem] p-6 md:p-10 mb-12 shadow-sm border-[6px] border-brand-cream flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
+       <div className="relative bg-brand-navBtn rounded-[3rem] p-6 md:p-10 mb-12 shadow-sm border-[6px] border-brand-cream flex flex-col md:flex-row items-start md:items-center justify-between gap-6 overflow-hidden">
         {/* Decorative dashed line inside */}
         <div className="absolute inset-4 border-2 border-dashed border-brand-brown/10 rounded-[2.5rem] pointer-events-none"></div>
 

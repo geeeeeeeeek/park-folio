@@ -1,4 +1,5 @@
 
+
 import { NationalPark, UserParkHistory, Badge } from './types';
 
 // ASCII Art Templates
@@ -123,7 +124,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 44.3386, lng: -68.2733 },
     description: 'Protecting the rocky headlands along the Atlantic coastline, this park is a jewel of granite peaks and pine forests.',
     established: '1919-02-26',
-    funFact: 'It is the first place in the U.S. to see the sunrise for half the year.'
+    funFact: 'It is the first place in the U.S. to see the sunrise for half the year.',
+    region: 'East Coast',
+    popularity: 'High',
+    bestSeasons: ['Summer', 'Fall']
   },
   {
     id: 'american-samoa',
@@ -133,7 +137,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: -14.2583, lng: -170.6833 },
     description: 'A tropical paradise preserving the coral reefs, rainforests, and Samoan culture.',
     established: '1988-10-31',
-    funFact: 'It is the only U.S. National Park located south of the equator.'
+    funFact: 'It is the only U.S. National Park located south of the equator.',
+    region: 'Tropical',
+    popularity: 'Low',
+    bestSeasons: ['Spring', 'Summer', 'Fall', 'Winter']
   },
   {
     id: 'arches',
@@ -143,7 +150,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 38.7331, lng: -109.5925 },
     description: 'A red-rock wonderland containing over 2,000 natural stone arches.',
     established: '1971-11-12',
-    funFact: 'The famous "Delicate Arch" isn\'t just delicate; it\'s free-standing and 60 feet tall!'
+    funFact: 'The famous "Delicate Arch" isn\'t just delicate; it\'s free-standing and 60 feet tall!',
+    region: 'Southwest',
+    popularity: 'High',
+    bestSeasons: ['Spring', 'Fall']
   },
   {
     id: 'badlands',
@@ -153,7 +163,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 43.8554, lng: -102.3397 },
     description: 'A striking geologic deposit containing one of the world’s richest fossil beds.',
     established: '1978-11-10',
-    funFact: 'Sabertooth cats once roamed here!'
+    funFact: 'Sabertooth cats once roamed here!',
+    region: 'Midwest',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Fall']
   },
   {
     id: 'big-bend',
@@ -163,7 +176,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 29.25, lng: -103.25 },
     description: 'Where the Rio Grande winds through deep canyons and desert mountains.',
     established: '1944-06-12',
-    funFact: 'It has more species of birds, bats, and cacti than any other national park.'
+    funFact: 'It has more species of birds, bats, and cacti than any other national park.',
+    region: 'Southwest',
+    popularity: 'Medium',
+    bestSeasons: ['Winter', 'Spring']
   },
   {
     id: 'biscayne',
@@ -173,7 +189,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 25.65, lng: -80.08 },
     description: 'A watery wonderland of coral reefs and pirate history.',
     established: '1980-06-28',
-    funFact: '95% of this park is underwater!'
+    funFact: '95% of this park is underwater!',
+    region: 'East Coast',
+    popularity: 'Medium',
+    bestSeasons: ['Winter', 'Spring']
   },
   {
     id: 'black-canyon',
@@ -183,7 +202,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 38.57, lng: -107.72 },
     description: 'Some of the steepest cliffs and oldest rock in North America.',
     established: '1999-10-21',
-    funFact: 'Some parts of the gorge only receive 33 minutes of sunlight a day.'
+    funFact: 'Some parts of the gorge only receive 33 minutes of sunlight a day.',
+    region: 'Rockies',
+    popularity: 'Low',
+    bestSeasons: ['Summer', 'Fall']
   },
   {
     id: 'bryce-canyon',
@@ -193,7 +215,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 37.593, lng: -112.1871 },
     description: 'Famous for its crimson-colored hoodoos, which are spire-shaped rock formations.',
     established: '1928-02-25',
-    funFact: 'It has the largest collection of hoodoos (odd-shaped pillars of rock) in the world.'
+    funFact: 'It has the largest collection of hoodoos (odd-shaped pillars of rock) in the world.',
+    region: 'Southwest',
+    popularity: 'High',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'canyonlands',
@@ -203,7 +228,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 38.3269, lng: -109.8783 },
     description: 'A wilderness of countless canyons and fantastically formed buttes.',
     established: '1964-09-12',
-    funFact: 'The outlaw Butch Cassidy used the intricate canyons here as a hideout.'
+    funFact: 'The outlaw Butch Cassidy used the intricate canyons here as a hideout.',
+    region: 'Southwest',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Fall']
   },
   {
     id: 'capitol-reef',
@@ -213,7 +241,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 38.0896, lng: -111.1355 },
     description: 'Surrounds a long wrinkle in the earth known as the Waterpocket Fold.',
     established: '1971-12-18',
-    funFact: 'Early settlers planted fruit orchards that you can still pick from today.'
+    funFact: 'Early settlers planted fruit orchards that you can still pick from today.',
+    region: 'Southwest',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Fall']
   },
   {
     id: 'carlsbad-caverns',
@@ -223,7 +254,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 32.1753, lng: -104.4423 },
     description: 'High ancient sea ledges, deep rocky canyons, and 119 known caves.',
     established: '1930-05-14',
-    funFact: 'The "Big Room" cave chamber is larger than 6 football fields.'
+    funFact: 'The "Big Room" cave chamber is larger than 6 football fields.',
+    region: 'Southwest',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'channel-islands',
@@ -233,7 +267,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 34.0069, lng: -119.7785 },
     description: 'Five remarkable islands off the California coast.',
     established: '1980-03-05',
-    funFact: 'Often called the "Galapagos of North America" due to unique species like the island fox.'
+    funFact: 'Often called the "Galapagos of North America" due to unique species like the island fox.',
+    region: 'West Coast',
+    popularity: 'Low',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'congaree',
@@ -243,7 +280,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 33.7919, lng: -80.7818 },
     description: 'The largest intact expanse of old growth bottomland hardwood forest remaining in the southeastern US.',
     established: '2003-11-10',
-    funFact: 'The trees here are nicknamed "Champion Trees" because they are the tallest of their species.'
+    funFact: 'The trees here are nicknamed "Champion Trees" because they are the tallest of their species.',
+    region: 'East Coast',
+    popularity: 'Low',
+    bestSeasons: ['Spring', 'Fall']
   },
   {
     id: 'crater-lake',
@@ -253,7 +293,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 42.9446, lng: -122.1090 },
     description: 'A sleeping volcano holding the deepest lake in the USA.',
     established: '1902-05-22',
-    funFact: 'There are no rivers flowing into or out of the lake; it is filled entirely by rain and snow.'
+    funFact: 'There are no rivers flowing into or out of the lake; it is filled entirely by rain and snow.',
+    region: 'West Coast',
+    popularity: 'Medium',
+    bestSeasons: ['Summer']
   },
   {
     id: 'cuyahoga-valley',
@@ -263,7 +306,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 41.2808, lng: -81.5678 },
     description: 'A refuge for native plants and wildlife along the Cuyahoga River.',
     established: '2000-10-11',
-    funFact: 'The name "Cuyahoga" comes from a Mohawk word meaning "crooked river".'
+    funFact: 'The name "Cuyahoga" comes from a Mohawk word meaning "crooked river".',
+    region: 'Midwest',
+    popularity: 'High',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'death-valley',
@@ -273,7 +319,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 36.5323, lng: -116.9325 },
     description: 'Hottest, driest, and lowest national park.',
     established: '1994-10-31',
-    funFact: 'Rocks here move on their own across the desert floor, a phenomenon known as "sailing stones".'
+    funFact: 'Rocks here move on their own across the desert floor, a phenomenon known as "sailing stones".',
+    region: 'West Coast',
+    popularity: 'Medium',
+    bestSeasons: ['Winter', 'Spring']
   },
   {
     id: 'denali',
@@ -283,7 +332,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 63.1148, lng: -151.1926 },
     description: 'Six million acres of wild land, bisected by one ribbon of road.',
     established: '1917-02-26',
-    funFact: 'Wood frogs here freeze solid in winter and thaw out alive in spring!'
+    funFact: 'Wood frogs here freeze solid in winter and thaw out alive in spring!',
+    region: 'Alaska',
+    popularity: 'Medium',
+    bestSeasons: ['Summer']
   },
   {
     id: 'dry-tortugas',
@@ -293,7 +345,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 24.6285, lng: -82.8732 },
     description: 'Open water with seven small islands, accessible only by boat or seaplane.',
     established: '1992-10-26',
-    funFact: 'Home to Fort Jefferson, the largest brick masonry structure in the Americas.'
+    funFact: 'Home to Fort Jefferson, the largest brick masonry structure in the Americas.',
+    region: 'East Coast',
+    popularity: 'Low',
+    bestSeasons: ['Winter', 'Spring']
   },
   {
     id: 'everglades',
@@ -303,7 +358,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 25.2866, lng: -80.8987 },
     description: 'The largest subtropical wilderness in the United States.',
     established: '1934-05-30',
-    funFact: 'It is the only place in the world where alligators and crocodiles coexist in the wild.'
+    funFact: 'It is the only place in the world where alligators and crocodiles coexist in the wild.',
+    region: 'East Coast',
+    popularity: 'Medium',
+    bestSeasons: ['Winter', 'Spring']
   },
   {
     id: 'gates-of-the-arctic',
@@ -313,7 +371,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 67.9152, lng: -153.4637 },
     description: 'A vast landscape with no roads or trails, protecting the Brooks Range.',
     established: '1980-12-02',
-    funFact: 'This is the northernmost national park, situated entirely above the Arctic Circle.'
+    funFact: 'This is the northernmost national park, situated entirely above the Arctic Circle.',
+    region: 'Alaska',
+    popularity: 'Low',
+    bestSeasons: ['Summer']
   },
   {
     id: 'gateway-arch',
@@ -323,7 +384,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 38.6247, lng: -90.1848 },
     description: 'A memorial to Thomas Jefferson\'s role in opening the West.',
     established: '2018-02-22',
-    funFact: 'It is the smallest national park in the US, but has the tallest monument.'
+    funFact: 'It is the smallest national park in the US, but has the tallest monument.',
+    region: 'Midwest',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'glacier',
@@ -333,7 +397,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 48.7596, lng: -113.7870 },
     description: 'A showcase of melting glaciers, alpine meadows, and carved valleys.',
     established: '1910-05-11',
-    funFact: 'Mountain goats here are often seen licking the mineral-rich rocks.'
+    funFact: 'Mountain goats here are often seen licking the mineral-rich rocks.',
+    region: 'Rockies',
+    popularity: 'High',
+    bestSeasons: ['Summer']
   },
   {
     id: 'glacier-bay',
@@ -343,7 +410,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 58.6658, lng: -136.9002 },
     description: 'Covering 3.3 million acres of rugged mountains and glaciers.',
     established: '1980-12-02',
-    funFact: 'Humpback whales swim here to eat up to half a ton of food per day.'
+    funFact: 'Humpback whales swim here to eat up to half a ton of food per day.',
+    region: 'Alaska',
+    popularity: 'Medium',
+    bestSeasons: ['Summer']
   },
   {
     id: 'grand-canyon',
@@ -353,7 +423,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 36.1069, lng: -112.1129 },
     description: 'A mile-deep gorge carved by the Colorado River.',
     established: '1919-02-26',
-    funFact: 'The canyon is so vast it creates its own weather!'
+    funFact: 'The canyon is so vast it creates its own weather!',
+    region: 'Southwest',
+    popularity: 'High',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'grand-teton',
@@ -363,7 +436,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 43.7904, lng: -110.6818 },
     description: 'Mountains of the imagination. Mountains that led to the creation of the park.',
     established: '1929-02-26',
-    funFact: 'The peaks are some of the youngest mountains in the Rockies, "only" 10 million years old.'
+    funFact: 'The peaks are some of the youngest mountains in the Rockies, "only" 10 million years old.',
+    region: 'Rockies',
+    popularity: 'High',
+    bestSeasons: ['Summer', 'Fall']
   },
   {
     id: 'great-basin',
@@ -373,7 +449,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 38.9833, lng: -114.3 },
     description: 'From the 13,000-foot Wheeler Peak to the sage-covered foothills.',
     established: '1986-10-27',
-    funFact: 'It contains the oldest known living trees on Earth, the Bristlecone Pines.'
+    funFact: 'It contains the oldest known living trees on Earth, the Bristlecone Pines.',
+    region: 'West Coast',
+    popularity: 'Low',
+    bestSeasons: ['Summer', 'Fall']
   },
   {
     id: 'great-sand-dunes',
@@ -383,7 +462,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 37.7916, lng: -105.5943 },
     description: 'The tallest dunes in North America are the centerpiece in a diverse landscape.',
     established: '2004-09-13',
-    funFact: 'The sand here sings! Avalanches create a low-frequency hum.'
+    funFact: 'The sand here sings! Avalanches create a low-frequency hum.',
+    region: 'Rockies',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Fall']
   },
   {
     id: 'great-smoky-mountains',
@@ -393,7 +475,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 35.6131, lng: -83.5532 },
     description: 'Ridge upon ridge of forest straddles the border between NC and TN.',
     established: '1934-06-15',
-    funFact: 'It is the salamander capital of the world.'
+    funFact: 'It is the salamander capital of the world.',
+    region: 'East Coast',
+    popularity: 'High',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'guadalupe-mountains',
@@ -403,7 +488,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 31.9231, lng: -104.8606 },
     description: 'Protects the world\'s most extensive Permian fossil reef.',
     established: '1972-09-30',
-    funFact: 'This mountain range is actually an ancient fossilized coral reef.'
+    funFact: 'This mountain range is actually an ancient fossilized coral reef.',
+    region: 'Southwest',
+    popularity: 'Low',
+    bestSeasons: ['Spring', 'Fall']
   },
   {
     id: 'haleakala',
@@ -413,7 +501,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 20.7204, lng: -156.1552 },
     description: 'Home to the dormant Haleakalā Volcano and endangered Hawaiian geese.',
     established: '1961-07-01',
-    funFact: 'The crater is big enough to hold the entire island of Manhattan.'
+    funFact: 'The crater is big enough to hold the entire island of Manhattan.',
+    region: 'Tropical',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Summer', 'Fall', 'Winter']
   },
   {
     id: 'hawaii-volcanoes',
@@ -423,7 +514,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 19.4194, lng: -155.2885 },
     description: 'Protects some of the most unique geological, biological, and cultural landscapes.',
     established: '1916-08-01',
-    funFact: 'You can walk through a 500-year-old lava tube here.'
+    funFact: 'You can walk through a 500-year-old lava tube here.',
+    region: 'Tropical',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Summer', 'Fall', 'Winter']
   },
   {
     id: 'hot-springs',
@@ -433,7 +527,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 34.5217, lng: -93.0423 },
     description: 'A place of healing and luxury, preserving the ancient thermal springs.',
     established: '1921-03-04',
-    funFact: 'It was the first piece of land set aside by the federal government for preservation (1832).'
+    funFact: 'It was the first piece of land set aside by the federal government for preservation (1832).',
+    region: 'Midwest',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Fall']
   },
   {
     id: 'indiana-dunes',
@@ -443,7 +540,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 41.6533, lng: -87.0524 },
     description: 'Diverse habitats of dunes, oak savannas, swamps, bogs, marshes, and forests.',
     established: '2019-02-15',
-    funFact: 'The dunes are known to "sing" or hum when sand slides down the slopes.'
+    funFact: 'The dunes are known to "sing" or hum when sand slides down the slopes.',
+    region: 'Midwest',
+    popularity: 'Medium',
+    bestSeasons: ['Summer']
   },
   {
     id: 'isle-royale',
@@ -453,7 +553,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 48.10, lng: -88.55 },
     description: 'A rugged, isolated island in Lake Superior, far from the sights and sounds of civilization.',
     established: '1940-04-03',
-    funFact: 'It is famous for the longest-running predator-prey study of wolves and moose.'
+    funFact: 'It is famous for the longest-running predator-prey study of wolves and moose.',
+    region: 'Midwest',
+    popularity: 'Low',
+    bestSeasons: ['Summer']
   },
   {
     id: 'joshua-tree',
@@ -463,7 +566,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 33.8734, lng: -115.9010 },
     description: 'Two distinct desert ecosystems, the Mojave and the Colorado, come together.',
     established: '1994-10-31',
-    funFact: 'Joshua Trees aren\'t actually trees; they are giant succulents related to Yuccas.'
+    funFact: 'Joshua Trees aren\'t actually trees; they are giant succulents related to Yuccas.',
+    region: 'West Coast',
+    popularity: 'High',
+    bestSeasons: ['Spring', 'Fall', 'Winter']
   },
   {
     id: 'katmai',
@@ -473,7 +579,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 58.50, lng: -155.00 },
     description: 'Known for its volcanoes and the brown bears that gather at Brooks Falls.',
     established: '1980-12-02',
-    funFact: 'Home to the annual "Fat Bear Week" competition.'
+    funFact: 'Home to the annual "Fat Bear Week" competition.',
+    region: 'Alaska',
+    popularity: 'Low',
+    bestSeasons: ['Summer']
   },
   {
     id: 'kenai-fjords',
@@ -483,7 +592,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 59.9248, lng: -149.6501 },
     description: 'Where the ice age lingers, with glaciers, earthquakes, and ocean storms.',
     established: '1980-12-02',
-    funFact: 'Over 50% of the park is covered in ice.'
+    funFact: 'Over 50% of the park is covered in ice.',
+    region: 'Alaska',
+    popularity: 'Medium',
+    bestSeasons: ['Summer']
   },
   {
     id: 'kings-canyon',
@@ -493,7 +605,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 36.8879, lng: -118.5551 },
     description: 'A land of giant skyscraping trees and deep valleys.',
     established: '1940-03-04',
-    funFact: 'It is home to the General Grant Tree, proclaimed "The Nation\'s Christmas Tree".'
+    funFact: 'It is home to the General Grant Tree, proclaimed "The Nation\'s Christmas Tree".',
+    region: 'West Coast',
+    popularity: 'Medium',
+    bestSeasons: ['Summer']
   },
   {
     id: 'kobuk-valley',
@@ -503,7 +618,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 67.55, lng: -159.28 },
     description: 'Caribou migrate through the Great Kobuk Sand Dunes here.',
     established: '1980-12-02',
-    funFact: 'It has sand dunes... in the Arctic!'
+    funFact: 'It has sand dunes... in the Arctic!',
+    region: 'Alaska',
+    popularity: 'Low',
+    bestSeasons: ['Summer']
   },
   {
     id: 'lake-clark',
@@ -513,7 +631,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 60.97, lng: -153.42 },
     description: 'Volcanoes, jagged mountains, glaciers, rivers, and waterfalls.',
     established: '1980-12-02',
-    funFact: 'This is one of the least visited parks because no roads lead here.'
+    funFact: 'This is one of the least visited parks because no roads lead here.',
+    region: 'Alaska',
+    popularity: 'Low',
+    bestSeasons: ['Summer']
   },
   {
     id: 'lassen-volcanic',
@@ -523,7 +644,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 40.4977, lng: -121.4207 },
     description: 'All four types of volcanoes found in the world are found here.',
     established: '1916-08-09',
-    funFact: 'Lassen Peak is the largest plug dome volcano in the world.'
+    funFact: 'Lassen Peak is the largest plug dome volcano in the world.',
+    region: 'West Coast',
+    popularity: 'Low',
+    bestSeasons: ['Summer', 'Fall']
   },
   {
     id: 'mammoth-cave',
@@ -533,7 +657,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 37.1862, lng: -86.1005 },
     description: 'The world\'s longest known cave system.',
     established: '1941-07-01',
-    funFact: 'Over 400 miles of passageways have been mapped, and no one knows how big it really is.'
+    funFact: 'Over 400 miles of passageways have been mapped, and no one knows how big it really is.',
+    region: 'East Coast',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'mesa-verde',
@@ -543,7 +670,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 37.1838, lng: -108.4887 },
     description: 'Protecting the archaeological heritage of the Ancestral Pueblo people.',
     established: '1906-06-29',
-    funFact: 'The Cliff Palace has 150 rooms and 23 kivas (ceremonial rooms).'
+    funFact: 'The Cliff Palace has 150 rooms and 23 kivas (ceremonial rooms).',
+    region: 'Rockies',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'mount-rainier',
@@ -553,7 +683,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 46.8523, lng: -121.7603 },
     description: 'An active volcano ascending to 14,410 feet above sea level.',
     established: '1899-03-02',
-    funFact: 'It is the most glaciated peak in the contiguous USA.'
+    funFact: 'It is the most glaciated peak in the contiguous USA.',
+    region: 'West Coast',
+    popularity: 'High',
+    bestSeasons: ['Summer']
   },
   {
     id: 'new-river-gorge',
@@ -563,7 +696,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 37.9626, lng: -81.0850 },
     description: 'A rugged, whitewater river flowing northward through deep canyons.',
     established: '2020-12-27',
-    funFact: 'Despite its name, the New River is one of the oldest rivers on the continent.'
+    funFact: 'Despite its name, the New River is one of the oldest rivers on the continent.',
+    region: 'East Coast',
+    popularity: 'Medium',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'north-cascades',
@@ -573,7 +709,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 48.7718, lng: -121.2985 },
     description: 'A rugged wilderness of jagged peaks, deep valleys, and cascading waterfalls.',
     established: '1968-10-02',
-    funFact: 'It has more glaciers (over 300) than any other US park outside Alaska.'
+    funFact: 'It has more glaciers (over 300) than any other US park outside Alaska.',
+    region: 'West Coast',
+    popularity: 'Low',
+    bestSeasons: ['Summer']
   },
   {
     id: 'olympic',
@@ -583,7 +722,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 47.8021, lng: -123.6044 },
     description: 'Three distinct ecosystems: subalpine forest, temperate rainforest, and rugged Pacific coast.',
     established: '1938-06-29',
-    funFact: 'One of the quietest places in the US, the "One Square Inch of Silence", is located here.'
+    funFact: 'One of the quietest places in the US, the "One Square Inch of Silence", is located here.',
+    region: 'West Coast',
+    popularity: 'High',
+    bestSeasons: ['Summer', 'Fall']
   },
   {
     id: 'petrified-forest',
@@ -593,7 +735,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 34.9100, lng: -109.8067 },
     description: 'Home to one of the world\'s largest and most colorful concentrations of petrified wood.',
     established: '1962-12-09',
-    funFact: 'The "wood" here is actually pure quartz crystal.'
+    funFact: 'The "wood" here is actually pure quartz crystal.',
+    region: 'Southwest',
+    popularity: 'Low',
+    bestSeasons: ['Spring', 'Fall']
   },
   {
     id: 'pinnacles',
@@ -603,7 +748,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 36.4869, lng: -121.1669 },
     description: 'Towering rock spires that are the remains of an ancient volcano.',
     established: '2013-01-10',
-    funFact: 'This park is a major release site for the endangered California Condor.'
+    funFact: 'This park is a major release site for the endangered California Condor.',
+    region: 'West Coast',
+    popularity: 'Low',
+    bestSeasons: ['Spring', 'Fall', 'Winter']
   },
   {
     id: 'redwood',
@@ -613,7 +761,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 41.2132, lng: -124.0046 },
     description: 'Home to the tallest trees on Earth.',
     established: '1968-10-02',
-    funFact: 'Hyperion, the tallest known living tree (380 ft), is hidden somewhere in this park.'
+    funFact: 'Hyperion, the tallest known living tree (380 ft), is hidden somewhere in this park.',
+    region: 'West Coast',
+    popularity: 'Medium',
+    bestSeasons: ['Summer']
   },
   {
     id: 'rocky-mountain',
@@ -623,7 +774,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 40.3428, lng: -105.6836 },
     description: 'Spectacular mountain environments with alpine lakes and wildlife.',
     established: '1915-01-26',
-    funFact: 'Trail Ridge Road is the highest continuous paved road in the United States.'
+    funFact: 'Trail Ridge Road is the highest continuous paved road in the United States.',
+    region: 'Rockies',
+    popularity: 'High',
+    bestSeasons: ['Summer', 'Fall']
   },
   {
     id: 'saguaro',
@@ -633,7 +787,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 32.2967, lng: -111.1666 },
     description: 'Home to the nation\'s largest cacti, the giant saguaro.',
     established: '1994-10-14',
-    funFact: 'A Saguaro cactus can live for 200 years and weigh more than a car.'
+    funFact: 'A Saguaro cactus can live for 200 years and weigh more than a car.',
+    region: 'Southwest',
+    popularity: 'Medium',
+    bestSeasons: ['Fall', 'Winter', 'Spring']
   },
   {
     id: 'sequoia',
@@ -643,7 +800,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 36.4864, lng: -118.5658 },
     description: 'A land of giants, including the General Sherman Tree.',
     established: '1890-09-25',
-    funFact: 'The General Sherman Tree is the largest tree on Earth by volume.'
+    funFact: 'The General Sherman Tree is the largest tree on Earth by volume.',
+    region: 'West Coast',
+    popularity: 'High',
+    bestSeasons: ['Summer']
   },
   {
     id: 'shenandoah',
@@ -653,7 +813,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 38.2928, lng: -78.6796 },
     description: 'A land of cascading waterfalls, spectacular vistas, and quiet woods.',
     established: '1935-12-26',
-    funFact: 'Skyline Drive runs the entire length of the park along the ridge of the mountains.'
+    funFact: 'Skyline Drive runs the entire length of the park along the ridge of the mountains.',
+    region: 'East Coast',
+    popularity: 'High',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'theodore-roosevelt',
@@ -663,7 +826,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 46.9790, lng: -103.5387 },
     description: 'The badlands where President Roosevelt once ranched and hunted.',
     established: '1978-11-10',
-    funFact: 'It is the only national park named after a single person.'
+    funFact: 'It is the only national park named after a single person.',
+    region: 'Midwest',
+    popularity: 'Medium',
+    bestSeasons: ['Summer']
   },
   {
     id: 'virgin-islands',
@@ -673,7 +839,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 18.3381, lng: -64.7930 },
     description: 'Tropical beaches, coral reefs, and historic ruins.',
     established: '1956-08-02',
-    funFact: 'The underwater trails here have signs to guide snorkelers.'
+    funFact: 'The underwater trails here have signs to guide snorkelers.',
+    region: 'Tropical',
+    popularity: 'Low',
+    bestSeasons: ['Winter', 'Spring']
   },
   {
     id: 'voyageurs',
@@ -683,7 +852,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 48.4841, lng: -92.8271 },
     description: 'A water-based park where you must leave your car behind.',
     established: '1975-04-08',
-    funFact: 'In winter, the frozen lakes turn into ice roads for cars and snowmobiles.'
+    funFact: 'In winter, the frozen lakes turn into ice roads for cars and snowmobiles.',
+    region: 'Midwest',
+    popularity: 'Low',
+    bestSeasons: ['Summer']
   },
   {
     id: 'white-sands',
@@ -693,7 +865,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 32.7872, lng: -106.3257 },
     description: 'Great wave-like dunes of gypsum sand.',
     established: '2019-12-20',
-    funFact: 'The sand is gypsum, which is water-soluble and rarely found as sand.'
+    funFact: 'The sand is gypsum, which is water-soluble and rarely found as sand.',
+    region: 'Southwest',
+    popularity: 'High',
+    bestSeasons: ['Fall', 'Winter', 'Spring']
   },
   {
     id: 'wind-cave',
@@ -703,7 +878,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 43.57, lng: -103.48 },
     description: 'One of the world\'s longest and most complex caves.',
     established: '1903-01-09',
-    funFact: 'It is the first cave to be designated a national park anywhere in the world.'
+    funFact: 'It is the first cave to be designated a national park anywhere in the world.',
+    region: 'Midwest',
+    popularity: 'Low',
+    bestSeasons: ['Spring', 'Summer']
   },
   {
     id: 'wrangell-st-elias',
@@ -713,7 +891,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 61.00, lng: -142.00 },
     description: 'The largest national park in the United States, rising from the ocean to 18,008 feet.',
     established: '1980-12-02',
-    funFact: 'It is larger than the country of Switzerland!'
+    funFact: 'It is larger than the country of Switzerland!',
+    region: 'Alaska',
+    popularity: 'Low',
+    bestSeasons: ['Summer']
   },
   {
     id: 'yellowstone',
@@ -723,7 +904,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 44.4280, lng: -110.5885 },
     description: 'The world\'s first national park, known for geysers and wildlife.',
     established: '1872-03-01',
-    funFact: 'Old Faithful isn\'t the biggest geyser, but it is the most punctual.'
+    funFact: 'Old Faithful isn\'t the biggest geyser, but it is the most punctual.',
+    region: 'Rockies',
+    popularity: 'High',
+    bestSeasons: ['Summer', 'Fall']
   },
   {
     id: 'yosemite',
@@ -733,7 +917,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 37.8651, lng: -119.5383 },
     description: 'Famous for its waterfalls, giant sequoias, and granite cliffs.',
     established: '1890-10-01',
-    funFact: 'Yosemite Falls is one of the tallest waterfalls in North America (2,425 ft).'
+    funFact: 'Yosemite Falls is one of the tallest waterfalls in North America (2,425 ft).',
+    region: 'West Coast',
+    popularity: 'High',
+    bestSeasons: ['Spring', 'Summer', 'Fall']
   },
   {
     id: 'zion',
@@ -743,7 +930,10 @@ const RAW_PARKS: Omit<NationalPark, 'asciiArt'>[] = [
     coordinates: { lat: 37.2982, lng: -113.0263 },
     description: 'Massive sandstone cliffs of cream, pink, and red.',
     established: '1919-11-19',
-    funFact: 'The Olympic Torch passed through Zion on its way to Salt Lake City in 2002.'
+    funFact: 'The Olympic Torch passed through Zion on its way to Salt Lake City in 2002.',
+    region: 'Southwest',
+    popularity: 'High',
+    bestSeasons: ['Spring', 'Fall']
   }
 ];
 

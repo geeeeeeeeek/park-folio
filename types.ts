@@ -1,8 +1,13 @@
 
+
 export interface Coordinates {
   lat: number;
   lng: number;
 }
+
+export type Region = 'Alaska' | 'West Coast' | 'Rockies' | 'Southwest' | 'Midwest' | 'East Coast' | 'Tropical';
+export type Season = 'Spring' | 'Summer' | 'Fall' | 'Winter';
+export type Popularity = 'High' | 'Medium' | 'Low';
 
 export interface NationalPark {
   id: string;
@@ -14,6 +19,9 @@ export interface NationalPark {
   asciiArt: string;
   established: string;
   funFact: string;
+  region: Region;
+  bestSeasons: Season[];
+  popularity: Popularity;
 }
 
 export type RatingValue = 0 | 1 | 2 | 3;
@@ -39,4 +47,4 @@ export interface Badge {
   relevantParkIds?: string[]; // Optional list of parks that contribute to this badge
 }
 
-export type ViewState = 'MAP' | 'BADGES' | 'LOGS';
+export type ViewState = 'MAP' | 'DISCOVER' | 'BADGES' | 'LOGS';

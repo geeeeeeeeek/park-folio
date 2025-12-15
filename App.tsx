@@ -11,6 +11,7 @@ import MapView from './components/MapView';
 import BadgeView from './components/BadgeView';
 import LogsView from './components/LogsView';
 import ParkDetails from './components/ParkDetails';
+import DiscoverView from './components/DiscoverView';
 
 const App = () => {
   const [currentView, setCurrentView] = useState<ViewState>('MAP');
@@ -26,6 +27,7 @@ const App = () => {
 
   const navItems = [
     { id: 'MAP', icon: 'map', label: 'Map' },
+    { id: 'DISCOVER', icon: 'dice', label: 'Discover' },
     { id: 'BADGES', icon: 'medal', label: 'Collections' },
     { id: 'LOGS', icon: 'journal', label: 'Logs' },
   ];
@@ -37,7 +39,7 @@ const App = () => {
       <header className="z-30 px-4 md:px-8 pt-6 pb-2 flex items-center justify-between shrink-0 pointer-events-none max-w-7xl mx-auto w-full">
         
         {/* Logo Chip */}
-        <div className="pointer-events-auto bg-brand-navBtn rounded-full p-2 pr-6 shadow-soft border-[4px] border-white flex items-center gap-4 transition-transform hover:scale-105 select-none">
+        <div className="pointer-events-auto bg-brand-navBtn rounded-full p-2 pr-2 md:pr-6 shadow-soft border-[4px] border-white flex items-center gap-4 transition-transform hover:scale-105 select-none">
            <div className="w-12 h-12 rounded-full bg-brand-orange overflow-hidden shadow-inner border-2 border-white shrink-0">
              <img 
                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA3mVNFOLWoB-Od1SoeZPaPvwhrjccv7Ku_Q_ZUQORtw&s=10" 
@@ -45,7 +47,7 @@ const App = () => {
                className="w-full h-full object-cover"
              />
            </div>
-           <div className="flex flex-col justify-center">
+           <div className="hidden md:flex flex-col justify-center">
              <h1 className="font-bold text-lg md:text-xl text-brand-brown tracking-wide leading-none">
                ParkFolio
              </h1>
@@ -99,6 +101,22 @@ const App = () => {
                 className="w-full h-full absolute inset-0"
                 >
                 <MapView 
+                    parks={PARKS} 
+                    visits={USER_LOGS} 
+                    onParkSelect={setSelectedParkId} 
+                />
+                </motion.div>
+            )}
+
+            {currentView === 'DISCOVER' && (
+                <motion.div
+                key="discover"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                className="w-full h-full"
+                >
+                <DiscoverView 
                     parks={PARKS} 
                     visits={USER_LOGS} 
                     onParkSelect={setSelectedParkId} 
