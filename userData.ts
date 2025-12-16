@@ -25,6 +25,11 @@ export const USER_LOGS: UserParkHistory[] = [
     visits: [{ date: '2025-01-01', notes: '' }]
   },
   {
+    parkId: 'big-bend',
+    rating: 2,
+    visits: [{ date: '2025-05-21', notes: '' }]
+  },
+  {
     parkId: 'bryce-canyon',
     rating: 2,
     visits: [{ date: '2025-01-01', notes: '' }]
