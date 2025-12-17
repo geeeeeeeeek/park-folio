@@ -54,33 +54,23 @@ const AchievementDetails: React.FC<AchievementDetailsProps> = ({ badge, parks, v
       >
         <div className="bg-[#fcfbf7] w-full max-w-4xl max-h-[85vh] overflow-hidden rounded-[3.5rem] shadow-2xl border-[6px] border-brand-cream/30 pointer-events-auto flex flex-col relative">
             
-            {/* Header Bar */}
-            <div className="bg-brand-teal w-full px-8 py-5 flex items-center justify-between border-b-4 border-white/50 relative overflow-hidden shrink-0">
-                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 10px, #fff 10px, #fff 20px)' }}></div>
-                 
-                 <div className="z-10 flex items-center gap-3">
-                     <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
-                         <Icon name="medal" className="w-5 h-5 text-white" />
-                     </div>
-                     <span className="font-bold text-white text-lg tracking-widest uppercase drop-shadow-sm">Achievement Info</span>
-                 </div>
-
-                 <button 
-                    onClick={onClose}
-                    className="z-10 bg-white text-brand-orange hover:bg-brand-orange hover:text-white transition-colors w-10 h-10 rounded-full flex items-center justify-center shadow-sm"
-                 >
-                    <Icon name="x" className="w-6 h-6 stroke-[3]" />
-                </button>
-            </div>
+            {/* Absolute Close Button - Light & Floating with Thick Border */}
+            <button 
+                onClick={onClose}
+                className="absolute top-6 right-6 z-50 bg-white/80 backdrop-blur-md text-brand-brown hover:bg-brand-orange hover:text-white transition-colors w-12 h-12 rounded-full flex items-center justify-center shadow-sm border-[4px] border-white"
+            >
+                <Icon name="x" className="w-6 h-6 stroke-[3]" />
+            </button>
 
             {/* Split Content Body */}
-            <div className="flex flex-col md:flex-row flex-1 overflow-y-auto md:overflow-hidden">
+            {/* Updated Layout: Standard padding for desktop as text is protected by pr-16 */}
+            <div className="flex flex-col md:flex-row flex-1 overflow-y-auto md:overflow-hidden pt-12 md:pt-0">
                 
                 {/* LEFT: Identity */}
                 <div className="flex-1 p-8 md:overflow-y-auto border-b-4 md:border-b-0 md:border-r-4 border-dashed border-brand-brown/10 bg-brand-cream/30 flex flex-col items-center text-center">
                      
                      {/* Badge Stamp */}
-                     <div className="relative mb-6 group">
+                     <div className="relative mb-6 group mt-4">
                          <div className={`w-40 h-40 rounded-[2.5rem] flex items-center justify-center border-[5px] border-white rotate-[-3deg] shadow-soft transition-transform duration-300
                             ${badge.isUnlocked ? 'bg-white' : 'bg-brand-gray/50'}
                          `}>
@@ -99,19 +89,23 @@ const AchievementDetails: React.FC<AchievementDetailsProps> = ({ badge, parks, v
                         {badge.name}
                      </h2>
 
-                     <div className="bg-white p-5 rounded-3xl border-2 border-brand-brown/5 shadow-sm mb-8 w-full">
-                        <p className="text-brand-brown/80 font-medium leading-relaxed">
-                            {badge.description}
-                        </p>
+                     {/* Description Bubble */}
+                     <div className="relative z-10 w-full">
+                         <div className="bg-white p-5 rounded-3xl border-[3px] border-brand-brown/5 shadow-sm mb-8 w-full relative">
+                            <p className="text-brand-brown/80 font-medium leading-relaxed">
+                                {badge.description}
+                            </p>
+                         </div>
                      </div>
                 </div>
 
                 {/* RIGHT: Requirements Checklist */}
+                {/* Removed extra top padding, managed overlap with pr-16 in header */}
                 <div className="flex-1 p-8 md:overflow-y-auto bg-brand-cream/30 relative">
                      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#7c6553 2px, transparent 2px)', backgroundSize: '24px 24px' }}></div>
                      
                      <div className="relative z-10">
-                        <div className="flex items-center justify-between mb-6 pb-4 border-b-2 border-dashed border-brand-brown/10">
+                        <div className="flex items-center justify-between mb-6 pb-4 border-b-2 border-dashed border-brand-brown/10 pr-16">
                             <div className="flex items-center gap-3">
                                 <div className="bg-brand-orange/10 p-2 rounded-xl rotate-3">
                                     <Icon name="check" className="w-6 h-6 text-brand-orange" />

@@ -9,6 +9,7 @@ import AchievementDetails from './AchievementDetails';
 interface BadgeViewProps {
   visits: UserParkHistory[];
   parks: NationalPark[];
+  onParkSelect: (id: string) => void;
 }
 
 const container: Variants = {
@@ -31,7 +32,7 @@ const itemVariants: Variants = {
   }
 };
 
-const BadgeView: React.FC<BadgeViewProps> = ({ visits, parks }) => {
+const BadgeView: React.FC<BadgeViewProps> = ({ visits, parks, onParkSelect }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedBadge, setSelectedBadge] = useState<(Badge & { isUnlocked: boolean }) | null>(null);
 
@@ -62,38 +63,37 @@ const BadgeView: React.FC<BadgeViewProps> = ({ visits, parks }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 pb-32">
       
-      {/* Header Banner - Redesigned to match Journal Aesthetic */}
-      <div className="relative bg-brand-navBtn rounded-[3rem] p-6 md:p-10 mb-12 shadow-sm border-[6px] border-brand-cream flex flex-col md:flex-row items-start md:items-center justify-between gap-6 overflow-hidden">
-        {/* Decorative dashed line inside */}
-        <div className="absolute inset-4 border-2 border-dashed border-brand-brown/10 rounded-[2.5rem] pointer-events-none"></div>
-
-        <div className="relative z-10 flex items-center gap-6">
-            <div className="bg-brand-teal text-white p-4 rounded-full shadow-soft rotate-3 border-4 border-white">
-                 <Icon name="medal" className="w-8 h-8" />
+      {/* Header Banner - Lighter Redesign */}
+      <div className="relative bg-white/60 backdrop-blur-md rounded-[3rem] p-6 md:p-8 mb-12 shadow-sm border-[4px] border-white flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* Texture Overlay */}
+        <div className="absolute inset-0 opacity-30 pointer-events-none rounded-[2.8rem]" style={{ backgroundImage: 'radial-gradient(#7c6553 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
+        
+        {/* Left: Title & Icon */}
+        <div className="relative z-10 flex items-center gap-6 w-full md:w-auto">
+            <div className="bg-white p-4 rounded-[2rem] shadow-sm border border-brand-brown/5 shrink-0">
+                 <div className="bg-brand-teal/10 p-3 rounded-2xl">
+                    <Icon name="medal" className="w-8 h-8 text-brand-teal" />
+                 </div>
             </div>
             <div>
-                <h2 className="text-3xl md:text-5xl font-bold text-brand-brown">Collections</h2>
-                <p className="text-brand-brown/60 font-medium mt-1 pl-1">
-                    Your journey in stamps & badges
-                </p>
+                <h2 className="text-3xl md:text-4xl font-bold text-brand-brown leading-none">Collections</h2>
+                <p className="text-brand-brown/50 font-medium mt-1">Your journey in stamps & badges</p>
             </div>
         </div>
 
-        {/* Progress Section */}
-         <div className="relative z-10 bg-white/60 backdrop-blur-sm p-5 rounded-[2rem] border-2 border-white shadow-sm w-full md:w-auto min-w-[280px]">
-               <div className="flex justify-between items-center mb-2 px-1">
-                   <span className="font-bold text-brand-brown/60 text-xs uppercase tracking-wider">Total Progress</span>
+        {/* Right: Progress Pill */}
+         <div className="relative z-10 bg-white px-6 py-4 rounded-[2rem] border border-brand-brown/5 shadow-sm min-w-[240px] w-full md:w-auto">
+               <div className="flex justify-between items-center mb-2">
+                   <span className="font-bold text-brand-brown/40 text-[10px] uppercase tracking-widest">Total Progress</span>
                    <span className="font-bold text-brand-teal text-lg">{visitedCount} / {totalParks}</span>
                </div>
-               <div className="h-4 bg-brand-brown/10 rounded-full overflow-hidden">
+               <div className="h-3 bg-brand-brown/5 rounded-full overflow-hidden">
                    <motion.div 
                      initial={{ width: 0 }}
                      animate={{ width: `${percentage}%` }}
                      transition={{ duration: 1.5, type: "spring" }}
                      className="h-full bg-brand-teal rounded-full relative"
-                   >
-                        <div className="absolute top-0 right-0 bottom-0 w-full opacity-20" style={{ backgroundImage: 'linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent)', backgroundSize: '1rem 1rem' }}></div>
-                   </motion.div>
+                   />
                </div>
          </div>
       </div>
@@ -140,11 +140,12 @@ const BadgeView: React.FC<BadgeViewProps> = ({ visits, parks }) => {
                             layout
                             variants={itemVariants}
                             exit={{ opacity: 0, scale: 0.8 }}
-                            className="flex flex-col items-center gap-4 w-full max-w-[200px]"
+                            onClick={() => onParkSelect(park.id)}
+                            className="flex flex-col items-center gap-4 w-full max-w-[200px] cursor-pointer group"
                         >
-                             <div className="group relative">
+                             <div className="group-hover:scale-105 transition-transform duration-300 relative">
                                   {/* Stamp Body */}
-                                  <div className="w-32 h-32 md:w-36 md:h-36 bg-white rounded-[2rem] flex items-center justify-center text-5xl md:text-6xl shadow-soft border-[5px] border-white rotate-[-3deg] group-hover:rotate-0 group-hover:scale-105 transition-all duration-300">
+                                  <div className="w-32 h-32 md:w-36 md:h-36 bg-white rounded-[2rem] flex items-center justify-center text-5xl md:text-6xl shadow-soft border-[5px] border-white rotate-[-3deg] group-hover:rotate-0 transition-transform duration-300">
                                      {park.emoji}
                                   </div>
                                   
@@ -155,7 +156,7 @@ const BadgeView: React.FC<BadgeViewProps> = ({ visits, parks }) => {
                              </div>
                              
                              <div className="text-center px-2">
-                                 <h4 className="font-bold text-brand-brown leading-tight text-lg mb-1">{park.name}</h4>
+                                 <h4 className="font-bold text-brand-brown leading-tight text-lg mb-1 group-hover:text-brand-orange transition-colors">{park.name}</h4>
                                  <span className="text-xs font-bold text-brand-brown/40 uppercase tracking-widest">{park.state}</span>
                              </div>
                         </motion.div>

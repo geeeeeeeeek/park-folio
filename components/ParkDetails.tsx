@@ -10,6 +10,12 @@ interface ParkDetailsProps {
   onClose: () => void;
 }
 
+const RATING_LABELS: Record<number, string> = {
+    1: "A pleasant stop",
+    2: "Worth a detour",
+    3: "Worth a dedicated trip"
+};
+
 const ParkDetails: React.FC<ParkDetailsProps> = ({ park, visit, onClose }) => {
   const hasVisits = visit && visit.visits.length > 0;
   const sortedVisits = hasVisits ? [...visit.visits].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) : [];
@@ -33,36 +39,24 @@ const ParkDetails: React.FC<ParkDetailsProps> = ({ park, visit, onClose }) => {
       >
         <div className="bg-[#fcfbf7] w-full max-w-4xl max-h-[85vh] overflow-hidden rounded-[3.5rem] shadow-2xl border-[6px] border-brand-cream/30 pointer-events-auto flex flex-col relative">
             
-            {/* Header Bar - NookPhone Style */}
-            <div className="bg-brand-teal w-full px-8 py-5 flex items-center justify-between border-b-4 border-white/50 relative overflow-hidden shrink-0">
-                 {/* Subtle Striped Pattern Overlay */}
-                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 10px, #fff 10px, #fff 20px)' }}></div>
-                 
-                 <div className="z-10 flex items-center gap-3">
-                     <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
-                         <Icon name="map" className="w-5 h-5 text-white" />
-                     </div>
-                     <span className="font-bold text-white text-lg tracking-widest uppercase drop-shadow-sm">Park Info</span>
-                 </div>
-
-                 <button 
-                    onClick={onClose}
-                    className="z-10 bg-white text-brand-orange hover:bg-brand-orange hover:text-white transition-colors w-10 h-10 rounded-full flex items-center justify-center shadow-sm"
-                 >
-                    <Icon name="x" className="w-6 h-6 stroke-[3]" />
-                </button>
-            </div>
+            {/* Absolute Close Button - Light & Floating with Thick Border */}
+            <button 
+                onClick={onClose}
+                className="absolute top-6 right-6 z-50 bg-white/80 backdrop-blur-md text-brand-brown hover:bg-brand-orange hover:text-white transition-colors w-12 h-12 rounded-full flex items-center justify-center shadow-sm border-[4px] border-white"
+            >
+                <Icon name="x" className="w-6 h-6 stroke-[3]" />
+            </button>
 
             {/* Split Content Body */}
-            {/* Updated Layout: Single scroll on mobile, split scroll on desktop */}
-            <div className="flex flex-col md:flex-row flex-1 overflow-y-auto md:overflow-hidden">
+            {/* Updated Layout: Standard padding for desktop as text is protected by pr-16 */}
+            <div className="flex flex-col md:flex-row flex-1 overflow-y-auto md:overflow-hidden pt-12 md:pt-0">
                 
                 {/* LEFT: Park Identity */}
                 <div className="flex-1 p-8 md:overflow-y-auto border-b-4 md:border-b-0 md:border-r-4 border-dashed border-brand-brown/10 bg-brand-cream/30">
                      <div className="flex flex-col items-center text-center">
                          
                          {/* Stamp/Sticker Icon */}
-                         <div className="relative mb-6 group">
+                         <div className="relative mb-6 group shrink-0">
                              <div className="w-32 h-32 bg-white rounded-[2.5rem] flex items-center justify-center text-6xl shadow-soft border-[5px] border-white rotate-[-3deg] group-hover:rotate-0 transition-transform duration-300">
                                 {park.emoji}
                              </div>
@@ -72,39 +66,66 @@ const ParkDetails: React.FC<ParkDetailsProps> = ({ park, visit, onClose }) => {
                              </div>
                          </div>
 
-                         <h2 className="text-3xl md:text-4xl font-bold text-brand-brown mb-4 leading-tight">
+                         <h2 className="text-3xl md:text-4xl font-bold text-brand-brown mb-8 leading-tight shrink-0">
                             {park.name}
                          </h2>
 
-                         <div className="bg-white p-5 rounded-3xl border-2 border-brand-brown/5 shadow-sm mb-8 w-full">
-                            <p className="text-brand-brown/80 font-medium leading-relaxed text-sm">
-                                {park.description}
-                            </p>
-                         </div>
+                         {/* Unified Info Area - Trail Guide Layout (No Container) */}
+                         <div className="w-full flex flex-col relative text-left pb-4">
+                            
+                            {/* Trail Connecting Line */}
+                            <div className="absolute left-[1.65rem] top-6 bottom-10 w-0 border-l-[3px] border-dashed border-brand-brown/20 z-0"></div>
 
-                         {/* Fun Fact Bubble */}
-                         <div className="w-full flex gap-4 items-start bg-brand-green/20 p-5 rounded-[2.5rem] border-2 border-brand-green/30 relative mt-auto">
-                             <div className="absolute -top-3 left-6 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-brand-green/30"></div>
-                             <div className="bg-brand-green w-12 h-12 rounded-full flex items-center justify-center shrink-0 text-white border-[3px] border-white shadow-sm">
-                                <Icon name="explorerBear" className="w-7 h-7" />
-                             </div>
-                             <div className="flex-1 text-left">
-                                 <div className="text-xs font-bold text-brand-greenDark mb-1 uppercase tracking-wide opacity-80">Ranger Fact</div>
-                                 <p className="text-brand-brown/90 text-sm italic font-medium leading-snug">"{park.funFact}"</p>
-                             </div>
+                            {/* Section 1: Overview */}
+                            <div className="flex gap-5 relative z-10 mb-8">
+                                <div className="shrink-0 flex flex-col items-center">
+                                     {/* Compass Icon */}
+                                     <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center text-brand-brown border-[3px] border-brand-brown/10 shadow-sm">
+                                         <Icon name="compass" className="w-7 h-7" />
+                                     </div>
+                                </div>
+                                <div className="pt-1">
+                                    <h4 className="font-bold text-brand-brown/40 uppercase tracking-widest text-[11px] mb-2">Park Overview</h4>
+                                    <p className="text-brand-brown font-medium leading-relaxed text-[15px] md:text-[16px]">
+                                        {park.description}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Section 2: Ranger Fact */}
+                            <div className="flex gap-5 relative z-10">
+                                <div className="shrink-0 flex flex-col items-center">
+                                     {/* Bear Icon - Size reduced to match visual weight of compass */}
+                                     <div className="w-14 h-14 rounded-full bg-brand-green flex items-center justify-center text-white border-[3px] border-brand-greenDark/20 shadow-sm rotate-[-6deg]">
+                                         <Icon name="explorerBear" className="w-6 h-6" />
+                                     </div>
+                                </div>
+                                <div className="flex-1 pt-1 min-w-0">
+                                    <h4 className="font-bold text-brand-brown/40 uppercase tracking-widest text-[11px] mb-2">Ranger's Secret</h4>
+                                    <div className="bg-brand-yellow p-5 rounded-3xl rounded-tl-none border-[3px] border-white shadow-sm relative inline-block w-full">
+                                        <p className="text-brand-brown text-[15px] font-bold leading-relaxed italic">
+                                            "{park.funFact}"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
                          </div>
+                         
                      </div>
                 </div>
 
                 {/* RIGHT: Visitor Log (Passport Style) */}
+                {/* Removed extra top padding, managed overlap with pr-16 in header */}
                 <div className="flex-1 p-8 md:overflow-y-auto bg-brand-cream/30 relative">
                      {/* Background Pattern */}
                      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#7c6553 2px, transparent 2px)', backgroundSize: '24px 24px' }}></div>
                      
                      <div className="relative z-10">
-                        {/* Header Section with Rating moved here */}
-                        <div className="flex items-center justify-between mb-6 pb-4 border-b-2 border-dashed border-brand-brown/10">
-                            <div className="flex items-center gap-3">
+                        {/* Header Section */}
+                        <div className="mb-6 pb-4 border-b-2 border-dashed border-brand-brown/10">
+                            {/* Title Row - Padding Right to clear Close Button */}
+                            <div className="flex items-center gap-3 pr-16 mb-4">
                                 <div className="bg-brand-orange/10 p-2 rounded-xl rotate-3">
                                     <Icon name="journal" className="w-6 h-6 text-brand-orange" />
                                 </div>
@@ -114,12 +135,27 @@ const ParkDetails: React.FC<ParkDetailsProps> = ({ park, visit, onClose }) => {
                                 </div>
                             </div>
 
-                            {/* Moved Rating Pinecones Here - As rating applies to the park/history, not just a single visit */}
+                            {/* Rating Row - Just above divider */}
                              {hasVisits && (
-                                <div className="flex gap-1 bg-white/50 px-3 py-1.5 rounded-full border border-brand-brown/5 shadow-sm">
-                                     {[1, 2, 3].map(v => (
-                                         <Icon key={v} name="pineCone" className={`w-4 h-4 ${v <= (visit?.rating || 0) ? 'text-brand-orange fill-brand-orange' : 'text-gray-300'}`} />
-                                     ))}
+                                <div className="flex items-center gap-4 bg-white/60 p-3 rounded-2xl border border-brand-brown/5">
+                                    {/* Rating Text */}
+                                    <div className="flex-1">
+                                        <span className="text-[10px] font-bold text-brand-brown/40 uppercase tracking-wider block mb-0.5">Your Rating</span>
+                                        <span className="font-bold text-brand-teal text-lg leading-none">
+                                            {visit?.rating ? RATING_LABELS[visit.rating] : "No Rating"}
+                                        </span>
+                                    </div>
+
+                                    {/* Thumbs Icons */}
+                                    <div className="flex gap-2">
+                                        {[1, 2, 3].map(v => (
+                                            <div key={v} className="flex flex-col items-center gap-1">
+                                                <div className={`p-1.5 rounded-lg transition-colors ${v <= (visit?.rating || 0) ? 'bg-brand-orange text-white shadow-sm' : 'bg-brand-brown/10 text-brand-brown/20'}`}>
+                                                    <Icon name="thumbsUp" className="w-4 h-4" />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                              )}
                         </div>

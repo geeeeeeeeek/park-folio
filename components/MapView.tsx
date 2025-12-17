@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -25,9 +25,30 @@ const FIPS_TO_ABBR: Record<string, string> = {
 const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   const [geoData, setGeoData] = useState<any>(null);
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
   const [hoveredPark, setHoveredPark] = useState<string | null>(null);
+  
+  // Calculate which states have all their parks visited
+  const completedStates = useMemo(() => {
+    const parksByState: Record<string, string[]> = {};
+    parks.forEach(p => {
+        if (!parksByState[p.state]) parksByState[p.state] = [];
+        parksByState[p.state].push(p.id);
+    });
+
+    const completed = new Set<string>();
+    const visitedIds = new Set(visits.flatMap(v => v.visits.length > 0 ? [v.parkId] : []));
+
+    Object.entries(parksByState).forEach(([state, parkIds]) => {
+        if (parkIds.length > 0 && parkIds.every(id => visitedIds.has(id))) {
+            completed.add(state);
+        }
+    });
+    return completed;
+  }, [parks, visits]);
 
   useEffect(() => {
     fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')
@@ -37,8 +58,8 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
       });
 
     const handleResize = () => {
-      if (svgRef.current) {
-        const { clientWidth, clientHeight } = svgRef.current.parentElement!;
+      if (containerRef.current) {
+        const { clientWidth, clientHeight } = containerRef.current;
         setDimensions({ width: clientWidth, height: clientHeight });
       }
     };
@@ -56,22 +77,35 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
     const g = d3.select(gRef.current);
     const { width, height } = dimensions;
 
-    // Zoom behavior
     const zoom = d3.zoom()
       .scaleExtent([1, 8])
       .translateExtent([[0, 0], [width, height]])
       .on("zoom", (event) => {
+        const k = event.transform.k;
         g.attr("transform", event.transform);
-        g.selectAll(".marker-group")
-          .attr("transform", `scale(${1 / event.transform.k})`);
         
-        // Counter-scale state labels
+        // Scale markers
+        g.selectAll(".marker-group")
+          .attr("transform", function() {
+            // Check if this element is currently being hovered (scaled up)
+            const isHovered = d3.select(this).classed("is-hovered");
+            const scale = isHovered ? (1.5 / k) : (1 / k);
+            return `scale(${scale})`;
+          });
+        
+        // Scale and toggle Park Labels (Show > 2.5x zoom)
+        const showLabels = k > 2.5;
+        g.selectAll(".park-label")
+            .style("opacity", showLabels ? 1 : 0)
+            .attr("transform", `scale(${1/k})`);
+        
+        // Scale State Labels
         g.selectAll(".state-label")
             .attr("transform", function() {
                 const sel = d3.select(this);
                 const x = parseFloat(sel.attr("data-x"));
                 const y = parseFloat(sel.attr("data-y"));
-                return `translate(${x}, ${y}) scale(${1 / event.transform.k})`;
+                return `translate(${x}, ${y}) scale(${1 / k})`;
             });
       });
 
@@ -79,14 +113,14 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
 
     const projection = d3.geoAlbersUsa()
       .translate([width / 2, height / 2])
-      .scale(Math.min(width, height) * 1.3);
+      .scale(Math.min(width, height) * 1.6); // Increased scale from 1.3 to 1.6
 
     const pathGenerator = d3.geoPath().projection(projection);
     const states = topojson.feature(geoData, geoData.objects.states);
 
     g.selectAll("*").remove();
 
-    // 1. Water Outline (Soft Muted Blue-Grey)
+    // 1. Water Outline
     g.append("g")
       .selectAll("path")
       .data((states as any).features)
@@ -99,10 +133,8 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
       .attr("stroke-linejoin", "round")
       .attr("stroke-opacity", 0.5);
 
-    // 2. Land Layer (Soft Sage Green)
+    // 2. Land Layer
     const landGroup = g.append("g");
-    
-    // 3. Label Layer
     const labelGroup = g.append("g").style("pointer-events", "none");
 
     landGroup.selectAll("path")
@@ -110,17 +142,27 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
       .enter()
       .append("path")
       .attr("d", pathGenerator as any)
-      .attr("fill", "#c5dca0") // Softer, more cohesive sage green
-      .attr("stroke", "#ffffff") // White border
+      .attr("fill", (d: any) => {
+          const fips = typeof d.id === 'number' ? d.id.toString().padStart(2, '0') : d.id;
+          const abbr = FIPS_TO_ABBR[fips];
+          if (completedStates.has(abbr)) return "#c5dbac"; // Slightly darker and warmer than #cbe3bb
+          return "#e3eec3"; // Unvisited warm light green
+      }) 
+      .attr("stroke", "#ffffff")
       .attr("stroke-width", 1.5)
-      .attr("stroke-opacity", 0.6) // Semi-transparent
-      .attr("class", "transition-colors duration-200 hover:fill-[#d2e6b2]")
+      .attr("stroke-opacity", 0.6)
+      .attr("class", (d: any) => {
+          const fips = typeof d.id === 'number' ? d.id.toString().padStart(2, '0') : d.id;
+          const abbr = FIPS_TO_ABBR[fips];
+          const isCompleted = completedStates.has(abbr);
+          return isCompleted 
+            ? "transition-colors duration-200 hover:fill-[#c5dbac]" 
+            : "transition-colors duration-200 hover:fill-[#e3eec3]";
+      })
       .on("mouseenter", (event, d: any) => {
           const centroid = pathGenerator.centroid(d);
           const fips = typeof d.id === 'number' ? d.id.toString().padStart(2, '0') : d.id;
           const abbr = FIPS_TO_ABBR[fips];
-
-          // Clear previous
           labelGroup.selectAll("*").remove();
 
           if (abbr && centroid) {
@@ -159,9 +201,7 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
       .on("click", (event, d) => {
         event.stopPropagation();
         onParkSelect(d.id);
-      })
-      .on("mouseenter", (event, d) => setHoveredPark(d.id))
-      .on("mouseleave", () => setHoveredPark(null));
+      });
 
     parkGroups.each(function(d) {
       const group = d3.select(this);
@@ -169,68 +209,158 @@ const MapView: React.FC<MapViewProps> = ({ parks, visits, onParkSelect }) => {
       const isVisited = parkHistory && parkHistory.visits.length > 0;
       
       const marker = group.append("g")
-        .attr("class", "marker-group transition-transform");
+        .attr("class", "marker-group transition-transform duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]"); // CSS transition for smooth scaling via D3
       
-      marker.append("circle")
+      // Floating animation container
+      const animatedContent = marker.append("g")
+        .attr("class", "animate-float")
+        .style("animation-delay", () => `${Math.random() * 2}s`);
+
+      // Hit area (invisible)
+      animatedContent.append("circle")
         .attr("r", 20)
         .attr("fill", "transparent");
 
       if (isVisited) {
-        // Visited: Tree Icon with drop shadow
-        marker.append("circle")
+        // Shadow
+        animatedContent.append("circle")
             .attr("r", 14)
-            .attr("fill", "rgba(124, 101, 83, 0.1)") // Soft brown shadow
+            .attr("fill", "rgba(124, 101, 83, 0.1)")
             .attr("cy", 2);
 
-        marker.append("path")
+        // Tree
+        animatedContent.append("path")
           .attr("d", "M12 3 L5 17 h5 v5 h4 v-5 h5 L12 3 z")
-          .attr("fill", "#668f63") // Muted Forest Green
+          .attr("fill", "#668f63")
           .attr("stroke", "#fff")
           .attr("stroke-width", 2)
           .attr("transform", "translate(-12, -14) scale(0.9)"); 
       } else {
-        // Not Visited: Little Dig Spot "X" or Dot
-        marker.append("circle")
-          .attr("r", 5)
-          .attr("fill", "#e6dfc2") // Matches new map background
-          .attr("stroke", "#e09f3e") // Softer Orange ring
+        // Dot
+        animatedContent.append("circle")
+          .attr("r", 6)
+          .attr("fill", "#f28f3b")
+          .attr("stroke", "#fff") 
           .attr("stroke-width", 2);
+      }
+
+      // Park Name Label (Hidden by default)
+      const textLabel = group.append("text")
+        .attr("class", "park-label")
+        .attr("text-anchor", "middle")
+        .attr("y", 28) // Position below marker
+        .attr("fill", "#7c6553")
+        .attr("stroke", "white")
+        .attr("stroke-width", 3)
+        .attr("stroke-linejoin", "round")
+        .attr("paint-order", "stroke")
+        .style("font-size", "12px")
+        .style("font-weight", "bold")
+        .style("opacity", 0) // Start hidden
+        .style("transition", "opacity 0.2s ease");
+
+      // Handle multi-line for long names
+      if (d.name.length > 16 && d.name.includes(' ')) {
+          const words = d.name.split(' ');
+          const mid = Math.ceil(words.length / 2);
+          const line1 = words.slice(0, mid).join(' ');
+          const line2 = words.slice(mid).join(' ');
+
+          textLabel.append("tspan")
+            .attr("x", 0)
+            .attr("dy", 0)
+            .text(line1);
+
+          textLabel.append("tspan")
+            .attr("x", 0)
+            .attr("dy", "1.1em")
+            .text(line2);
+      } else {
+          textLabel.text(d.name);
       }
     });
 
-  }, [geoData, dimensions, parks, visits, onParkSelect]);
+    // Handle Hover "Bounce" Effect via D3
+    parkGroups
+      .on("mouseenter", function(event, d) {
+          setHoveredPark(d.id);
+          const currentK = d3.zoomTransform(svgRef.current!).k;
+          
+          // Select the specific marker group inside this park group
+          d3.select(this).select(".marker-group")
+            .classed("is-hovered", true)
+            .transition()
+            .duration(300)
+            .ease(d3.easeElasticOut)
+            .attr("transform", `scale(${1.5 / currentK})`); // Scale up 1.5x relative to zoom
+      })
+      .on("mouseleave", function() {
+          setHoveredPark(null);
+          const currentK = d3.zoomTransform(svgRef.current!).k;
+
+          d3.select(this).select(".marker-group")
+            .classed("is-hovered", false)
+            .transition()
+            .duration(200)
+            .ease(d3.easeQuadOut)
+            .attr("transform", `scale(${1 / currentK})`); // Return to normal scale
+      });
+
+  }, [geoData, dimensions, parks, visits, onParkSelect, completedStates]);
 
   return (
-    <div className="w-full h-full relative pattern-map-dots overflow-hidden">
+    <div 
+        ref={containerRef}
+        className="w-full h-full relative pattern-map-dots overflow-hidden"
+    >
       {!geoData && (
          <div className="absolute inset-0 flex items-center justify-center text-brand-tealDark bg-white/50 z-10 rounded-3xl m-12 backdrop-blur-sm">
             <span className="font-bold text-xl tracking-widest text-brand-brown/60">Loading Map...</span>
          </div>
       )}
 
-      <svg ref={svgRef} width="100%" height="100%" className="block relative z-10">
+      {/* Floating Clouds Layer */}
+      <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden opacity-40">
+        {[...Array(5)].map((_, i) => (
+            <motion.div
+                key={i}
+                initial={{ x: -200, y: Math.random() * 400 }}
+                animate={{ x: ['110vw'], y: [Math.random() * 400, Math.random() * 400 + 50] }}
+                transition={{ 
+                    duration: 40 + Math.random() * 40, 
+                    repeat: Infinity, 
+                    ease: "linear",
+                    delay: i * 10
+                }}
+                className="absolute text-white"
+            >
+                <Icon name="cloud" className={`w-${32 + i * 8} h-${32 + i * 8}`} />
+            </motion.div>
+        ))}
+      </div>
+
+      <svg ref={svgRef} width="100%" height="100%" className="block relative z-0">
         <g ref={gRef} />
       </svg>
-
+      
       {/* Tooltip */}
-      <div className="absolute bottom-8 left-8 pointer-events-none z-20">
+      <div className="absolute bottom-8 left-8 pointer-events-none z-30">
         <AnimatePresence>
           {hoveredPark && (
              <motion.div 
-                initial={{ scale: 0, rotate: -5 }}
-                animate={{ scale: 1, rotate: 0 }}
-                exit={{ scale: 0, rotate: 5 }}
+                initial={{ scale: 0, rotate: -5, y: 20 }}
+                animate={{ scale: 1, rotate: 0, y: 0 }}
+                exit={{ scale: 0, rotate: 5, y: 10, opacity: 0 }}
+                transition={{ type: "spring", bounce: 0.5 }}
                 className="bg-white px-5 py-3 rounded-[1.5rem] shadow-soft border-4 border-white ring-4 ring-brand-teal/20 max-w-sm"
              >
                <div className="flex items-center gap-3">
-                   {/* State Abbr in Rounded Square */}
                    <div className="bg-brand-yellow w-10 h-10 rounded-xl flex items-center justify-center border-2 border-white shadow-sm shrink-0">
                       <span className="font-bold text-brand-brown">
                          {parks.find(p => p.id === hoveredPark)?.state}
                       </span>
                    </div>
                    
-                   {/* Park Name Only */}
                    <div>
                        <h3 className="font-bold text-xl text-brand-brown leading-none">
                          {parks.find(p => p.id === hoveredPark)?.name}

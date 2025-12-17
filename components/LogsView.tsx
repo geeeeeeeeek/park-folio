@@ -11,10 +11,10 @@ interface LogsViewProps {
 }
 
 const RATING_TEXT: Record<RatingValue, string> = {
-  3: "Top Tier",
-  2: "Great",
-  1: "Good",
-  0: "Learned a Lot"
+  3: "Worth a dedicated trip",
+  2: "Worth a detour",
+  1: "A pleasant stop",
+  0: "A learning experience"
 };
 
 const container = {
@@ -47,28 +47,29 @@ const LogsView: React.FC<LogsViewProps> = ({ parks, visits, onParkSelect }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 pb-32">
        
-       {/* Header Banner - Matching BadgeView Aesthetic */}
-       <div className="relative bg-brand-navBtn rounded-[3rem] p-6 md:p-10 mb-12 shadow-sm border-[6px] border-brand-cream flex flex-col md:flex-row items-start md:items-center justify-between gap-6 overflow-hidden">
-        {/* Decorative dashed line inside */}
-        <div className="absolute inset-4 border-2 border-dashed border-brand-brown/10 rounded-[2.5rem] pointer-events-none"></div>
-
-        <div className="relative z-10 flex items-center gap-6">
-            <div className="bg-brand-orange text-white p-4 rounded-full shadow-soft -rotate-3 border-4 border-white">
-                 <Icon name="journal" className="w-8 h-8" />
+       {/* Header Banner - Lighter Redesign */}
+       <div className="relative bg-white/60 backdrop-blur-md rounded-[3rem] p-6 md:p-8 mb-12 shadow-sm border-[4px] border-white flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Texture Overlay */}
+            <div className="absolute inset-0 opacity-30 pointer-events-none rounded-[2.8rem]" style={{ backgroundImage: 'radial-gradient(#7c6553 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
+            
+            {/* Left: Title & Icon */}
+            <div className="relative z-10 flex items-center gap-6 w-full md:w-auto">
+                 <div className="bg-white p-4 rounded-[2rem] shadow-sm border border-brand-brown/5 shrink-0">
+                     <div className="bg-brand-orange/10 p-3 rounded-2xl">
+                        <Icon name="journal" className="w-8 h-8 text-brand-orange" />
+                     </div>
+                 </div>
+                 <div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-brand-brown leading-none">Travel Logs</h2>
+                    <p className="text-brand-brown/50 font-medium mt-1">Notes from the field</p>
+                 </div>
             </div>
-            <div>
-                <h2 className="text-3xl md:text-5xl font-bold text-brand-brown">Travel Logs</h2>
-                <p className="text-brand-brown/60 font-medium mt-1 pl-1">
-                    Notes from the field
-                </p>
-            </div>
-        </div>
 
-        {/* Stats Section */}
-         <div className="relative z-10 bg-white/60 backdrop-blur-sm px-8 py-3 rounded-[2rem] border-2 border-white shadow-sm w-full md:w-auto min-w-[200px] flex flex-col items-center">
-               <span className="font-bold text-brand-brown/60 text-xs uppercase tracking-wider">Total Entries</span>
-               <span className="font-bold text-brand-teal text-3xl">{flattenedLogs.length}</span>
-         </div>
+            {/* Right: Stats Pill */}
+            <div className="relative z-10 bg-white px-8 py-4 rounded-[2rem] border border-brand-brown/5 shadow-sm flex flex-col items-center justify-center min-w-[160px] w-full md:w-auto">
+               <span className="font-bold text-brand-brown/40 text-[10px] uppercase tracking-widest mb-1">Total Entries</span>
+               <span className="font-bold text-brand-brown text-3xl leading-none">{flattenedLogs.length}</span>
+            </div>
       </div>
 
       {/* Grid Layout for Logs */}
